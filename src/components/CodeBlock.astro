@@ -1,0 +1,70 @@
+---
+/**
+ * CodeBlock — syntax-highlighted <pre><code> with copy button.
+ * Spec references: sections 12, 18, 19, 23.
+ *
+ * Uses Astro's built-in Shiki for syntax highlighting on code
+ * passed as a prop. Shiki runs at build time — zero JS for highlighting.
+ *
+ * Copy button is keyboard-accessible, aria-labelled, and announces
+ * via an aria-live region (rendered in BaseLayout).
+ */
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  language: string;
+  label?: string; // optional filename or context label
+  id?: string;    // used by tab panel aria-labelledby
+}
+
+const { code, language, label, id } = Astro.props;
+
+// Shiki theme — custom matching spec colour palette
+// We override specific token colours via CSS variables in main.css
+// The 'github-light' base theme is the closest match to spec palette
+const SHIKI_THEME = 'github-light';
+---
+
+<div class="code-block" {id}>
+  {label && <span class="code-block__label">{label}</span>}
+
+  <div style="position:relative">
+    <Code
+      code={code}
+      lang={language as Parameters<typeof Code>[0]['lang']}
+      theme={SHIKI_THEME}
+    />
+
+    <!-- Copy button — hidden when JS unavailable -->
+    <button
+      class="code-block__copy"
+      aria-label="Copy code to clipboard"
+      data-copy-source={code}
+      type="button"
+    >
+      Copy
+    </button>
+  </div>
+</div>
+
+<style>
+  /*
+   * Override Shiki's inline background so our code-block background
+   * from main.css takes effect. Shiki inlines background-color on <pre>
+   * by default which would override the token.
+   */
+  .code-block :global(pre) {
+    background-color: var(--bg-code) !important;
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    overflow-x: auto;
+    font-size: var(--text-sm);
+    line-height: var(--leading-code);
+    margin: 0;
+  }
+
+  .code-block :global(pre code) {
+    font-family: var(--font-mono);
+  }
+</style>

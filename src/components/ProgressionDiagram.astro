@@ -1,0 +1,67 @@
+---
+/**
+ * ProgressionDiagram — three-stage development-to-production path.
+ * Spec reference: section 14, section 23.
+ *
+ * Static CSS-rendered. No SVG required — pure HTML + CSS.
+ * Three stages with arrows between them.
+ */
+import { site } from '../data/site';
+---
+
+<section
+  class="section"
+  id="start-local"
+  aria-labelledby="start-local-heading"
+>
+  <div class="container">
+    <h2 class="section-heading" id="start-local-heading">
+      Start local. Deploy later.
+    </h2>
+
+    <div class="progression">
+      <div class="progression__diagram" role="list" aria-label="Development to production stages">
+        <!-- Stage 1 -->
+        <div class="progression__stage" role="listitem">
+          <div class="progression__stage-label">Development</div>
+          <div class="progression__stage-title">CyodaLight &middot; In-Memory</div>
+          <p class="progression__stage-desc">
+            Start here. Run your entity model, try the APIs, build your workflow
+            logic.
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="progression__arrow" aria-hidden="true">&rarr;</div>
+
+        <!-- Stage 2 -->
+        <div class="progression__stage" role="listitem">
+          <div class="progression__stage-label">Integration Testing</div>
+          <div class="progression__stage-title">CyodaLight &middot; PostgreSQL</div>
+          <p class="progression__stage-desc">
+            Add durable state. Run your integration tests with the same code.
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="progression__arrow" aria-hidden="true">&rarr;</div>
+
+        <!-- Stage 3 -->
+        <div class="progression__stage" role="listitem">
+          <div class="progression__stage-label">Production</div>
+          <div class="progression__stage-title">Cyoda Cloud</div>
+          <p class="progression__stage-desc">
+            Managed, distributed, horizontally scalable. Same APIs. No code
+            changes.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="progression__cta">
+      <a href={site.cyoda} class="btn btn--text" target="_blank" rel="noopener noreferrer">
+        Learn about Cyoda &rarr;
+      </a>
+    </div>
+  </div>
+</section>

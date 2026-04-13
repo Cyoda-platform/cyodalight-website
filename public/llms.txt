@@ -1,0 +1,24 @@
+# CyodaLight
+
+> CyodaLight is the free, open source local development runtime for the Cyoda entity
+> workflow platform. Written in Go. Single binary. In-memory or PostgreSQL mode.
+> Full gRPC API parity with Cyoda Cloud. Client libraries for Java, Python, Go, and Kotlin.
+> Apache 2.0 License. No sign-up required.
+
+## Documentation
+
+- [Quick Start](https://docs.cyoda.net/cyodalight/quickstart): Get CyodaLight running in under 5 minutes
+- [API Reference](https://docs.cyoda.net/cyodalight/api): Full gRPC API documentation
+- [Entity Model](https://docs.cyoda.net/cyodalight/entities): How entities and state machines work
+- [Configuration](https://docs.cyoda.net/cyodalight/config): In-memory and PostgreSQL configuration
+- [Examples](https://docs.cyoda.net/cyodalight/examples): Runnable examples in Java, Python, Go, Kotlin
+
+## Project
+
+- [GitHub Repository](https://github.com/Cyoda-platform/cyoda-light-go): Source code, issues, releases
+- [Cyoda Platform](https://cyoda.com): Full distributed Cyoda platform (production use)
+- [Changelog](https://DOMAIN_PLACEHOLDER/changelog): Release history
+
+## Optional
+
+- [Full Content](https://DOMAIN_PLACEHOLDER/llms-full.txt): Complete site content in plain markdown

@@ -1,0 +1,32 @@
+---
+/**
+ * FeatureCard — icon + title + one-line description.
+ * Spec reference: section 13, section 23.
+ *
+ * Icons are inline SVG. All 8 icons are embedded in FeatureGrid to avoid
+ * per-card HTTP requests. This component renders the card shell.
+ */
+interface Props {
+  iconId: string;     // SVG symbol id from the sprite
+  title: string;
+  description: string;
+}
+
+const { iconId, title, description } = Astro.props;
+---
+
+<article class="feature-card">
+  <!-- SVG icon from sprite -->
+  <svg
+    class="feature-card__icon"
+    aria-hidden="true"
+    focusable="false"
+    width="24"
+    height="24"
+  >
+    <use href={`#${iconId}`} />
+  </svg>
+
+  <h3 class="feature-card__title">{title}</h3>
+  <p class="feature-card__description">{description}</p>
+</article>

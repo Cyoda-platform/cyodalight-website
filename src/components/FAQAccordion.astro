@@ -1,0 +1,29 @@
+---
+/**
+ * FAQAccordion — native <details>/<summary> accordion. No JS required.
+ * Spec references: section 15, section 18, section 20 (JSON-LD FAQPage).
+ *
+ * The JSON-LD FAQPage schema is generated in BaseHead from the same
+ * faqItems data array used here — single source of truth.
+ */
+import type { FaqItem } from '../data/faq';
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq" role="list" aria-label="Frequently asked questions">
+  {items.map((item) => (
+    <details class="faq__item" role="listitem">
+      <summary>
+        {item.question}
+      </summary>
+      <div class="faq__answer">
+        <p set:html={item.answer} />
+      </div>
+    </details>
+  ))}
+</div>

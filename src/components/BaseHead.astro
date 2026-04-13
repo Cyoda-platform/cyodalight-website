@@ -1,0 +1,116 @@
+---
+/**
+ * BaseHead — renders all <head> content.
+ * Spec references: sections 7.3, 18, 19, 20, 21.
+ */
+import { site, version } from '../data/site';
+
+interface StructuredDataObject {
+  [key: string]: unknown;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  structuredData?: StructuredDataObject[];
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  canonicalUrl = site.url + '/',
+  structuredData = [],
+} = Astro.props;
+
+// JSON-LD: SoftwareApplication — spec section 20
+const softwareAppSchema: StructuredDataObject = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'CyodaLight',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Linux, macOS, Windows',
+  programmingLanguage: ['Go', 'Java', 'Python', 'Kotlin'],
+  description:
+    'CyodaLight is a free, open source local runtime for the Cyoda entity workflow platform. It implements the full Cyoda gRPC API and workflow engine in a single binary, with in-memory or PostgreSQL storage modes.',
+  url: site.url,
+  downloadUrl: site.githubReleases,
+  softwareVersion: version,
+  license: site.licenseUrl,
+  author: {
+    '@type': 'Organization',
+    name: site.copyrightHolder,
+    url: site.cyoda,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+
+// JSON-LD: BreadcrumbList — single-item for homepage
+const breadcrumbSchema: StructuredDataObject = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'CyodaLight',
+      item: site.url,
+    },
+  ],
+};
+
+const allSchemas = [softwareAppSchema, breadcrumbSchema, ...structuredData];
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary meta -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={site.url} />
+<meta property="og:title" content={site.ogTitle} />
+<meta property="og:description" content={site.ogDescription} />
+<meta property="og:image" content={`${site.url}${site.ogImage}`} />
+<meta property="og:image:width" content={String(site.ogImageWidth)} />
+<meta property="og:image:height" content={String(site.ogImageHeight)} />
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={site.ogTitle} />
+<meta name="twitter:description" content={site.twitterDescription} />
+<meta name="twitter:image" content={`${site.url}${site.ogImage}`} />
+
+<!-- Font preloads — above-fold fonts only, to avoid render blocking -->
+<link
+  rel="preload"
+  href="/fonts/inter/inter-latin-700-normal.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/inter/inter-latin-400-normal.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+
+<!-- JSON-LD Structured Data -->
+{allSchemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

@@ -1,0 +1,23 @@
+---
+/**
+ * Badge — small pill tag.
+ * Spec reference: section 9 (hero badge), section 23.
+ */
+interface Props {
+  label: string;
+  variant?: 'default' | 'accent';
+  dotColor?: string; // CSS colour value for optional leading dot
+}
+
+const { label, variant = 'default', dotColor } = Astro.props;
+---
+
+<span class:list={['badge', variant === 'accent' && 'badge--accent']}>
+  {dotColor && (
+    <span
+      style={`display:inline-block;width:6px;height:6px;border-radius:50%;background:${dotColor};flex-shrink:0;`}
+      aria-hidden="true"
+    />
+  )}
+  {label}
+</span>

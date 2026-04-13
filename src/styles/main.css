@@ -1,0 +1,1198 @@
+/* ==========================================================================
+   CyodaLight — main.css
+   Single compiled stylesheet. No CSS-in-JS. No utility class framework.
+   All design tokens from spec section 7. 8px base grid throughout.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens (CSS Custom Properties)
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Backgrounds */
+  --bg-primary:     #ffffff;
+  --bg-secondary:   #f8fafc;
+  --bg-code:        #f1f5f9;
+  --bg-proof-bar:   #f1f5f9;
+
+  /* Borders */
+  --border-default: #e2e8f0;
+  --border-strong:  #cbd5e1;
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  /* Accent */
+  --accent-primary: #2563eb;
+  --accent-hover:   #1d4ed8;
+  --accent-light:   #eff6ff;
+
+  /* Semantic */
+  --success:        #059669;
+  --warning:        #d97706;
+
+  /* Code syntax */
+  --code-keyword:   #1e40af;
+  --code-string:    #065f46;
+  --code-comment:   #94a3b8;
+  --code-function:  #7c3aed;
+  --code-number:    #b45309;
+
+  /* Typography */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+
+  --leading-tight:  1.25;
+  --leading-normal: 1.6;
+  --leading-code:   1.5;
+
+  /* Border radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-pill: 9999px;
+
+  /* Spacing (8px grid) */
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-5:  40px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-10: 80px;
+  --space-12: 96px;
+
+  /* Layout */
+  --max-width: 1200px;
+  --nav-height: 56px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   2. Font Face Declarations
+   -------------------------------------------------------------------------- */
+
+/* Inter — weights used: 400 (regular), 600 (semibold), 700 (bold) */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter/inter-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter/inter-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/inter/inter-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* JetBrains Mono — weight used: 400 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------------------
+   3. Reset and Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* No animations until font and layout are stable */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* --------------------------------------------------------------------------
+   4. Skip Link (Accessibility)
+   -------------------------------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-2);
+  z-index: 9999;
+  padding: var(--space-1) var(--space-2);
+  background: var(--accent-primary);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top 0.1s;
+}
+
+.skip-link:focus {
+  top: var(--space-1);
+}
+
+/* --------------------------------------------------------------------------
+   5. Focus Styles — Never remove, always visible
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. Layout Utilities
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--space-6);
+  }
+}
+
+.section {
+  padding-block: var(--space-10);
+}
+
+.section--alt {
+  background-color: var(--bg-secondary);
+}
+
+/* Two-column grid */
+.two-col {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .two-col {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Typography
+   -------------------------------------------------------------------------- */
+
+.section-heading {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-4);
+}
+
+.section-subheading {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-4);
+}
+
+.prose {
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.prose p + p {
+  margin-top: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. NavBar
+   -------------------------------------------------------------------------- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+}
+
+.navbar__logo:hover {
+  color: var(--text-primary);
+}
+
+.navbar__wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.navbar__wordmark-cyoda {
+  font-weight: 400;
+}
+
+.navbar__wordmark-light {
+  font-weight: 600;
+}
+
+.navbar__links {
+  display: none;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .navbar__links {
+    display: flex;
+  }
+}
+
+.navbar__link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar__link:hover {
+  color: var(--text-primary);
+}
+
+.navbar__github {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar__star-count {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Hamburger */
+.navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+}
+
+@media (min-width: 640px) {
+  .navbar__hamburger {
+    display: none;
+  }
+}
+
+.navbar__hamburger span {
+  display: block;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 1px;
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.navbar__hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar__hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer */
+.navbar__drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-2);
+  z-index: 99;
+}
+
+.navbar__drawer.is-open {
+  display: block;
+}
+
+.navbar__drawer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__drawer-links .navbar__link {
+  display: block;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-base);
+  border-radius: var(--radius-sm);
+}
+
+.navbar__drawer-links .navbar__link:hover {
+  background-color: var(--bg-code);
+}
+
+/* --------------------------------------------------------------------------
+   9. Badge
+   -------------------------------------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  white-space: nowrap;
+}
+
+.badge--accent {
+  border-color: var(--accent-light);
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   10. Hero Section
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding-block: var(--space-10) var(--space-8);
+  background-color: var(--bg-primary);
+}
+
+/* Subtle CSS grid pattern — pure CSS, no image file */
+.hero--grid-bg {
+  background-image:
+    linear-gradient(var(--border-default) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-default) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center center;
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+  }
+}
+
+.hero__badge {
+  margin-bottom: var(--space-3);
+}
+
+.hero__headline {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+  .hero__headline {
+    font-size: var(--text-5xl);
+  }
+}
+
+.hero__subhead {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-4);
+  max-width: 480px;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.hero__confirm {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.hero__confirm-check {
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   11. Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  font-family: var(--font-body);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: var(--accent-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: var(--accent-hover);
+  color: #fff;
+}
+
+.btn--text {
+  background: none;
+  color: var(--text-secondary);
+  padding-inline: 0;
+  font-weight: 500;
+}
+
+.btn--text:hover {
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   12. Install Panel (tabbed code block)
+   -------------------------------------------------------------------------- */
+
+.install-panel {
+  background-color: var(--bg-code);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.install-panel__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-default);
+  background-color: var(--bg-secondary);
+  padding: 0 var(--space-2);
+}
+
+.install-panel__tab {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.install-panel__tab:hover {
+  color: var(--text-secondary);
+}
+
+.install-panel__tab[aria-selected="true"] {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+}
+
+.install-panel__content {
+  padding: var(--space-3);
+}
+
+.install-panel__panel {
+  display: none;
+}
+
+.install-panel__panel[aria-hidden="false"] {
+  display: block;
+}
+
+/* Fallback: show first panel when JS is disabled */
+.no-js .install-panel__panel:first-child,
+.install-panel__panel.is-active {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   13. Code Block
+   -------------------------------------------------------------------------- */
+
+.code-block {
+  position: relative;
+}
+
+.code-block__label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-1);
+  display: block;
+}
+
+.code-block pre {
+  background-color: var(--bg-code);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  line-height: var(--leading-code);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.code-block pre code {
+  font-family: var(--font-mono);
+  font-size: inherit;
+  background: none;
+  padding: 0;
+}
+
+.code-block__copy {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  padding: 4px 8px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.code-block__copy:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.code-block__copy--success {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+/* Live region for screen reader copy announcement */
+.sr-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Syntax highlighting — matches spec colour palette */
+.token.keyword,
+.token.operator,
+.token.boolean { color: var(--code-keyword); }
+
+.token.string,
+.token.template-string { color: var(--code-string); }
+
+.token.comment { color: var(--code-comment); font-style: italic; }
+
+.token.function,
+.token.method { color: var(--code-function); }
+
+.token.number { color: var(--code-number); }
+
+/* --------------------------------------------------------------------------
+   14. Language Tab Group
+   -------------------------------------------------------------------------- */
+
+.lang-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.lang-tabs__tablist {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 0;
+}
+
+.lang-tabs__tab {
+  padding: 6px var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.lang-tabs__tab:hover {
+  color: var(--text-secondary);
+}
+
+.lang-tabs__tab[aria-selected="true"] {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+}
+
+.lang-tabs__panel {
+  display: none;
+}
+
+.lang-tabs__panel[aria-hidden="false"] {
+  display: block;
+}
+
+/* Fallback: show first panel when JS is disabled */
+.no-js .lang-tabs__panel:first-of-type,
+.lang-tabs__panel.is-active {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   15. Proof Bar
+   -------------------------------------------------------------------------- */
+
+.proof-bar {
+  background-color: var(--bg-proof-bar);
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  padding-block: var(--space-2);
+}
+
+.proof-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.proof-bar__label {
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.proof-bar__items {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.proof-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.proof-bar__item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.proof-bar__divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--border-strong);
+  flex-shrink: 0;
+}
+
+.proof-bar__pill {
+  padding: 2px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   16. What It Is Section
+   -------------------------------------------------------------------------- */
+
+.what-it-is__diagram {
+  max-width: 420px;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   17. Hello World Section
+   -------------------------------------------------------------------------- */
+
+.hello-world__framing {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  font-style: italic;
+}
+
+.hello-world__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--accent-primary);
+}
+
+.hello-world__link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   18. Feature Grid
+   -------------------------------------------------------------------------- */
+
+.feature-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .feature-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.feature-card {
+  padding: var(--space-3);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.1s;
+}
+
+.feature-card:hover {
+  border-color: var(--border-strong);
+}
+
+.feature-card__icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: var(--space-2);
+  color: var(--accent-primary);
+}
+
+.feature-card__title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+  line-height: var(--leading-tight);
+}
+
+.feature-card__description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+/* --------------------------------------------------------------------------
+   19. Progression Diagram
+   -------------------------------------------------------------------------- */
+
+.progression {
+  margin-bottom: var(--space-6);
+}
+
+.progression__diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .progression__diagram {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.progression__stage {
+  flex: 1;
+  padding: var(--space-3);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.progression__stage-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.progression__stage-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.progression__stage-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.progression__arrow {
+  display: none;
+  align-self: center;
+  color: var(--text-muted);
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .progression__arrow {
+    display: block;
+  }
+}
+
+.progression__cta {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   20. FAQ Accordion
+   -------------------------------------------------------------------------- */
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.faq__item:last-child {
+  border-bottom: none;
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+  background-color: var(--bg-primary);
+  transition: background-color 0.1s;
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq__item summary:hover {
+  background-color: var(--bg-secondary);
+}
+
+.faq__item summary::after {
+  content: '+';
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  padding: 0 var(--space-3) var(--space-3);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  background-color: var(--bg-primary);
+}
+
+.faq__answer a {
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   21. Final CTA
+   -------------------------------------------------------------------------- */
+
+.final-cta {
+  text-align: center;
+}
+
+.final-cta__code {
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+  text-align: left;
+}
+
+.final-cta__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   22. Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-default);
+  padding-block: var(--space-8);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.footer__wordmark {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.footer__wordmark:hover {
+  color: var(--text-primary);
+}
+
+.footer__tagline {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer__links a {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer__links a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.footer__copyright {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   23. Architecture Diagram (What It Is)
+   -------------------------------------------------------------------------- */
+
+.arch-diagram {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: var(--bg-code);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  max-width: 420px;
+}

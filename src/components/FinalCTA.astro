@@ -1,0 +1,47 @@
+---
+/**
+ * FinalCTA — repeats the shortest run path and two CTAs.
+ * Spec reference: section 16, section 23.
+ *
+ * The install command is [PLACEHOLDER] — must be resolved before launch.
+ */
+import CodeBlock from './CodeBlock.astro';
+import { site } from '../data/site';
+import { shortestInstallCommand } from '../data/install';
+---
+
+<section
+  class="section section--alt"
+  id="run-it-locally"
+  aria-labelledby="final-cta-heading"
+>
+  <div class="container">
+    <div class="final-cta">
+      <h2 class="section-heading" id="final-cta-heading">Run it locally</h2>
+
+      <div class="final-cta__code">
+        <CodeBlock
+          code={shortestInstallCommand}
+          language="bash"
+        />
+      </div>
+
+      <div class="final-cta__actions">
+        <a
+          href={site.docsQuickstart}
+          class="btn btn--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Get started &rarr;
+        </a>
+        <a
+          href={site.github}
+          class="btn btn--text"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

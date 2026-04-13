@@ -1,0 +1,43 @@
+---
+/**
+ * FAQSection — FAQ heading + accordion + JSON-LD FAQPage schema.
+ * Spec references: section 15, section 20.
+ *
+ * The JSON-LD FAQPage schema is generated here from faqItems —
+ * same source used by the accordion — so they stay in sync.
+ */
+import FAQAccordion from './FAQAccordion.astro';
+import { faqItems } from '../data/faq';
+
+// Build FAQPage JSON-LD from the same data source as the accordion
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<section
+  class="section section--alt"
+  id="faq"
+  aria-labelledby="faq-heading"
+>
+  <div class="container">
+    <h2 class="section-heading" id="faq-heading">Common questions</h2>
+
+    <FAQAccordion items={faqItems} />
+  </div>
+</section>
+
+<!-- FAQPage JSON-LD — generated from same data as accordion -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(faqSchema)}
+/>

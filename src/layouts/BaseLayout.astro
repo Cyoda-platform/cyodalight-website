@@ -1,0 +1,68 @@
+---
+/**
+ * BaseLayout — wraps all pages with HTML shell, head, skip link, nav, footer.
+ * Spec references: sections 18, 19, 20.
+ */
+import BaseHead from '../components/BaseHead.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import '../styles/main.css';
+
+interface StructuredDataObject {
+  [key: string]: unknown;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  structuredData?: StructuredDataObject[];
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  structuredData,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      structuredData={structuredData}
+    />
+  </head>
+  <body>
+    <!-- Skip to content link — first interactive element per spec section 19 -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <NavBar />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Screen reader live region for copy-to-clipboard announcements -->
+    <div
+      id="sr-copy-live"
+      class="sr-live"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- JS loaded deferred at end of body — tabs and copy buttons only -->
+    <!-- Spec section 18: "JS at end of <body> with defer" -->
+    <!-- Astro processes this as a module script, bundled and deferred automatically -->
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>

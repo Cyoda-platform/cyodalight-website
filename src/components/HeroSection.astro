@@ -1,0 +1,68 @@
+---
+/**
+ * HeroSection — two-column hero: prose left, install panel right.
+ * Spec reference: section 9, section 23.
+ *
+ * The install command placeholders are visible in the code panels.
+ * They must be replaced with confirmed values before launch.
+ */
+import Badge from './Badge.astro';
+import InstallPanel from './InstallPanel.astro';
+import { site } from '../data/site';
+import { installTabs } from '../data/install';
+---
+
+<section
+  class="hero hero--grid-bg"
+  id="hero"
+  aria-labelledby="hero-heading"
+>
+  <div class="container">
+    <div class="hero__inner">
+      <!-- Left column: text -->
+      <div class="hero__text">
+        <div class="hero__badge">
+          <Badge label="Open Source · Apache 2.0" variant="accent" />
+        </div>
+
+        <h1 class="hero__headline" id="hero-heading">
+          Run workflow-driven backend applications locally.
+        </h1>
+
+        <p class="hero__subhead">
+          CyodaLight is the open-source local runtime for Cyoda.
+          Run in memory for speed, or use PostgreSQL for durable state.
+        </p>
+
+        <div class="hero__actions">
+          <a
+            href={site.docsQuickstart}
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get started &rarr;
+          </a>
+          <a
+            href={site.github}
+            class="btn btn--text"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: install panel -->
+      <div class="hero__panel">
+        <InstallPanel tabs={installTabs} panelId="hero-install" />
+
+        <p class="hero__confirm">
+          <span class="hero__confirm-check">&#10003;</span>
+          Zero dependencies in memory mode
+          &nbsp;&middot;&nbsp;
+          Starts in under 2 seconds
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

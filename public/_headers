@@ -1,0 +1,38 @@
+# Cloudflare Pages cache headers
+
+# Static assets — fonts, images, JS, CSS — immutable with 1 year TTL
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/og-card.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages — always revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# AI/LLM consumption files — short TTL so they stay current
+/llms.txt
+  Cache-Control: public, max-age=3600
+
+/llms-full.txt
+  Cache-Control: public, max-age=3600
+
+# Sitemap and robots — short TTL
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=86400

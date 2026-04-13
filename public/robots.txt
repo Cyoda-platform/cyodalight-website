@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Sitemap: https://DOMAIN_PLACEHOLDER/sitemap.xml
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /

@@ -1,0 +1,97 @@
+---
+/**
+ * NavBar — sticky 56px header with three nav links and mobile hamburger.
+ * Spec reference: section 8, section 23.
+ *
+ * GitHub star count is fetched client-side by main.ts.
+ * If the fetch fails, the star count span is hidden gracefully.
+ *
+ * TODO: Replace the text wordmark with SVG logo once asset is provided.
+ * See spec section 26 Pre-Build Checklist: "CyodaLight logo and wordmark provided as SVG"
+ */
+import { site } from '../data/site';
+
+const navLinks = [
+  { label: 'Docs', href: site.docs },
+  { label: 'GitHub', href: site.github, id: 'nav-github' },
+  { label: 'Cyoda', href: site.cyoda },
+];
+---
+
+<header class="navbar" role="banner">
+  <div class="container">
+    <nav class="navbar__inner" aria-label="Main navigation">
+      <!-- Logo / Wordmark -->
+      <!-- TODO: Replace with SVG logo asset when provided -->
+      <a href="/" class="navbar__logo" aria-label="CyodaLight home">
+        <span class="navbar__wordmark">
+          <span class="navbar__wordmark-cyoda">cyoda</span><span
+            class="navbar__wordmark-light">light</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="navbar__links" role="list">
+        <li>
+          <a href={site.docs} class="navbar__link" target="_blank" rel="noopener noreferrer">
+            Docs
+          </a>
+        </li>
+        <li>
+          <a
+            href={site.github}
+            class="navbar__link navbar__github"
+            id="nav-github-link"
+          >
+            GitHub
+            <span
+              class="navbar__star-count"
+              id="github-star-count"
+              aria-label="GitHub stars"
+              style="display:none"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a href={site.cyoda} class="navbar__link" target="_blank" rel="noopener noreferrer">
+            Cyoda
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile hamburger button -->
+      <button
+        class="navbar__hamburger"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="navbar-drawer"
+        id="navbar-hamburger"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  class="navbar__drawer"
+  id="navbar-drawer"
+  role="dialog"
+  aria-label="Navigation menu"
+  aria-modal="false"
+>
+  <ul class="navbar__drawer-links" role="list">
+    <li>
+      <a href={site.docs} class="navbar__link" target="_blank" rel="noopener noreferrer">Docs</a>
+    </li>
+    <li>
+      <a href={site.github} class="navbar__link">GitHub</a>
+    </li>
+    <li>
+      <a href={site.cyoda} class="navbar__link" target="_blank" rel="noopener noreferrer">Cyoda</a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,62 @@
+---
+/**
+ * HelloWorld — language-tabbed code example with framing text.
+ * Spec reference: section 12, section 23.
+ *
+ * Tab state is persisted in localStorage (shared key with any other
+ * LanguageTabGroup instances on the page).
+ *
+ * All four code examples have [PLACEHOLDER] module paths and API signatures.
+ * They must be replaced with confirmed values before launch.
+ */
+import LanguageTabGroup from './LanguageTabGroup.astro';
+import { helloWorldExamples } from '../data/hello-world';
+import { site } from '../data/site';
+---
+
+<section
+  class="section section--alt"
+  id="hello-world"
+  aria-labelledby="hello-world-heading"
+>
+  <div class="container">
+    <div class="two-col">
+      <!-- Left: framing -->
+      <div>
+        <h2 class="section-heading" id="hello-world-heading">Hello World</h2>
+
+        <p class="hello-world__framing">
+          The smallest useful Cyoda example: one entity, one workflow, one
+          branch, one result.
+        </p>
+
+        <div class="prose">
+          <p>
+            This example creates a <code>Greeting</code> entity, runs it
+            through a two-state workflow, and prints the result based on the
+            time of day. It works identically against CyodaLight and Cyoda
+            Cloud.
+          </p>
+        </div>
+
+        <a
+          href={site.docsQuickstart}
+          class="hello-world__link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          &rarr; Full quick start on docs.cyoda.net
+        </a>
+      </div>
+
+      <!-- Right: language-tabbed code -->
+      <div>
+        <LanguageTabGroup
+          examples={helloWorldExamples}
+          storageKey="cyoda-lang"
+          groupId="hello-world"
+        />
+      </div>
+    </div>
+  </div>
+</section>

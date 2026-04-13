@@ -1,0 +1,59 @@
+---
+/**
+ * InstallPanel — three-tab code panel (In-Memory, PostgreSQL, Docker).
+ * Spec reference: section 9 (hero right column), section 23.
+ *
+ * First tab is active by default (CSS + aria).
+ * JS in main.ts handles tab switching and localStorage persistence.
+ * If JS is disabled, the first tab remains visible.
+ */
+import CodeBlock from './CodeBlock.astro';
+import type { InstallTab } from '../data/install';
+
+interface Props {
+  tabs: InstallTab[];
+  panelId?: string; // base id for panel/tab aria linkage
+}
+
+const { tabs, panelId = 'install' } = Astro.props;
+---
+
+<div class="install-panel" data-install-panel>
+  <!-- Tab list -->
+  <div
+    class="install-panel__tabs"
+    role="tablist"
+    aria-label="Installation mode"
+  >
+    {tabs.map((tab, i) => (
+      <button
+        class="install-panel__tab"
+        role="tab"
+        id={`${panelId}-tab-${i}`}
+        aria-controls={`${panelId}-panel-${i}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        type="button"
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Tab panels -->
+  <div class="install-panel__content">
+    {tabs.map((tab, i) => (
+      <div
+        class:list={['install-panel__panel', i === 0 && 'is-active']}
+        role="tabpanel"
+        id={`${panelId}-panel-${i}`}
+        aria-labelledby={`${panelId}-tab-${i}`}
+        aria-hidden={i === 0 ? 'false' : 'true'}
+      >
+        <CodeBlock
+          code={tab.code}
+          language={tab.language}
+        />
+      </div>
+    ))}
+  </div>
+</div>

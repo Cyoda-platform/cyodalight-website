@@ -1,0 +1,131 @@
+Last updated: 2026-04-13
+
+# CyodaLight — Complete Site Content
+
+## What is CyodaLight?
+
+CyodaLight is the free, open source local development runtime for the Cyoda entity workflow platform. It is written in Go and distributed as a single binary. It runs the Cyoda entity workflow engine and gRPC API locally with no distributed cluster required.
+
+CyodaLight supports two modes:
+
+- **In-memory mode**: Stores entity state in process memory. Zero external dependencies. Starts in under 2 seconds. Resets when the process stops. Use for development and fast test cycles.
+- **PostgreSQL mode**: Stores entity state durably in a PostgreSQL database. Use when you need persistence across restarts and for integration testing.
+
+The gRPC API exposed by CyodaLight is identical to Cyoda Cloud. Code written against CyodaLight runs against Cyoda Cloud without modification. Change the target host — nothing else changes.
+
+## Key Capabilities
+
+- **In-memory mode**: Zero dependencies. Starts in under 2 seconds. Resets cleanly between runs.
+- **PostgreSQL mode**: Durable, transactional entity storage for local integration testing.
+- **Full workflow engine**: Finite state machine with explicit transition rules, identical to Cyoda Cloud.
+- **gRPC API**: Same API surface as production Cyoda. One config change to switch targets.
+- **Entity lifecycle**: Immutable state history, auditable transitions, queryable at any point in time.
+- **Language-agnostic**: Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.
+- **Test harness**: Reset entity state between tests via a single API call. No teardown scripts needed.
+- **Path to production**: Applications built on CyodaLight deploy to Cyoda Cloud without API changes.
+
+## Supported Languages
+
+Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the API.
+
+## Install and Run
+
+TODO: All install commands are [PLACEHOLDER] pending confirmation of the Go binary distribution and Docker image name.
+
+### In-Memory Mode (recommended for getting started)
+```bash
+[INSTALL_COMMAND] start --mode=memory
+# Starts at http://localhost:8080
+# gRPC available at localhost:9090
+```
+
+### PostgreSQL Mode
+```bash
+[INSTALL_COMMAND] start --mode=postgres \
+  --postgres-url=postgres://localhost:5432/cyoda
+```
+
+### Docker
+```bash
+docker run -p 8080:8080 \
+  [DOCKER_IMAGE]:latest --mode=memory
+```
+
+## Hello World Example (Go)
+
+TODO: Module path and API signatures are [PLACEHOLDER] pending confirmation of published client libraries.
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+    cyoda "[GO_MODULE_PATH]"
+)
+
+func main() {
+    client, _ := cyoda.NewClient("localhost:8080")
+    ctx := context.Background()
+
+    entity, _ := client.CreateEntity(ctx, &cyoda.Entity{
+        Type:  "Greeting",
+        State: "PENDING",
+        Data: map[string]any{
+            "hour": time.Now().Hour(),
+        },
+    })
+
+    if time.Now().Hour() < 12 {
+        client.Transition(ctx, entity.ID, "MORNING")
+        fmt.Println("Good morning")
+    } else {
+        client.Transition(ctx, entity.ID, "AFTERNOON")
+        fmt.Println("Good afternoon")
+    }
+}
+```
+
+## Development to Production Progression
+
+1. **CyodaLight — In-Memory**: Start here. Run your entity model, try the APIs, build your workflow logic.
+2. **CyodaLight — PostgreSQL**: Add durable state. Run your integration tests with the same code.
+3. **Cyoda Cloud**: Managed, distributed, horizontally scalable. Same APIs. No code changes.
+
+## FAQ
+
+**What is CyodaLight?**
+CyodaLight is a free, open source Go implementation of the Cyoda platform. It runs the Cyoda entity workflow engine and gRPC API locally, as a single binary, with no distributed cluster required. It supports in-memory mode for development and PostgreSQL mode for durable local testing.
+
+**Is it free and open source?**
+Yes. CyodaLight is released under the Apache 2.0 License. There are no usage limits, no telemetry, and no account required to run it.
+
+**What is the difference between in-memory and PostgreSQL mode?**
+In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops. PostgreSQL mode stores entity state durably in a PostgreSQL database. Use in-memory for development and fast test cycles; use PostgreSQL when you need persistence across restarts.
+
+**Who is CyodaLight for?**
+Backend developers building stateful, workflow-driven applications. Technical evaluators assessing Cyoda before a commercial deployment. Teams wanting to test their application logic locally before moving to Cyoda Cloud.
+
+**Can I build locally and deploy to Cyoda later?**
+Yes. CyodaLight exposes the same gRPC API as Cyoda Cloud. Applications built against CyodaLight run against Cyoda Cloud without API changes. Change the target host; nothing else changes.
+
+**What languages are supported?**
+Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the API.
+
+**How does CyodaLight relate to Cyoda Cloud?**
+CyodaLight is the local development version of the Cyoda platform. Cyoda Cloud is the fully distributed, managed version with horizontal scalability, multi-node replication, and Cassandra-backed storage. CyodaLight is designed to be API-compatible so that local work transfers to the cloud platform directly.
+
+**Where is the documentation?**
+Full documentation is at docs.cyoda.net. The CyodaLight quick start guide is the recommended first stop.
+
+## Links
+
+- GitHub: https://github.com/Cyoda-platform/cyoda-light-go
+- Documentation: https://docs.cyoda.net
+- Quick Start: https://docs.cyoda.net/cyodalight/quickstart
+- Cyoda Platform: https://cyoda.com
+
+## License
+
+Apache 2.0 License. Copyright 2026 Cyoda Ltd.

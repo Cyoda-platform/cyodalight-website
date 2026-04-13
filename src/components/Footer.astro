@@ -1,0 +1,45 @@
+---
+/**
+ * Footer — wordmark, licence, links, copyright.
+ * Spec reference: section 17, section 23.
+ *
+ * TODO: Replace text wordmark with SVG logo once asset is provided.
+ */
+import { site } from '../data/site';
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <!-- Wordmark -->
+      <!-- TODO: Replace with SVG logo asset when provided -->
+      <a href="/" class="footer__wordmark" aria-label="CyodaLight home">
+        cyoda<strong>light</strong>
+      </a>
+
+      <!-- Tagline -->
+      <p class="footer__tagline">
+        Open source under the Apache 2.0 License.<br />
+        A project by <a href={site.cyoda} target="_blank" rel="noopener noreferrer">Cyoda</a> — {site.cyoda.replace('https://', '')}
+      </p>
+
+      <!-- Links -->
+      <ul class="footer__links" role="list">
+        <li>
+          <a href={site.github}>GitHub</a>
+        </li>
+        <li>
+          <a href={site.docs} target="_blank" rel="noopener noreferrer">docs.cyoda.net</a>
+        </li>
+        <li>
+          <a href={site.cyoda} target="_blank" rel="noopener noreferrer">cyoda.com</a>
+        </li>
+      </ul>
+
+      <!-- Copyright -->
+      <p class="footer__copyright">
+        &copy; {site.copyrightYear} {site.copyrightHolder}. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

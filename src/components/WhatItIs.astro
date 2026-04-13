@@ -1,0 +1,125 @@
+---
+/**
+ * WhatItIs — prose explanation + inline SVG architecture diagram.
+ * Spec reference: section 11, section 23.
+ *
+ * Diagram dimensions: max 420px wide. Readable at 1x on mobile.
+ * All text in the SVG uses the body font for consistency.
+ */
+---
+
+<section
+  class="section"
+  id="what-it-is"
+  aria-labelledby="what-it-is-heading"
+>
+  <div class="container">
+    <div class="two-col">
+      <!-- Prose -->
+      <div>
+        <h2 class="section-heading" id="what-it-is-heading">What it is</h2>
+
+        <div class="prose">
+          <p>
+            CyodaLight is a Go implementation of the Cyoda platform API. It runs
+            the same entity workflow engine, gRPC integrations, and entity
+            lifecycle behaviour as the full Cyoda platform — in a single binary
+            you can start on your laptop in under two seconds.
+          </p>
+
+          <p>
+            Two modes are available. In-memory mode has zero external
+            dependencies and resets on restart, making it useful for development
+            and automated testing. PostgreSQL mode persists entity state durably
+            across restarts, suitable for local integration testing against a real
+            database.
+          </p>
+
+          <p>
+            The APIs are identical to Cyoda Cloud. Code written against
+            CyodaLight runs against Cyoda Cloud without modification.
+          </p>
+        </div>
+      </div>
+
+      <!-- Architecture SVG diagram -->
+      <!--
+        Spec section 11: "Static inline SVG. Dark text on light background."
+        Spec defines the exact structure and labels.
+      -->
+      <div class="what-it-is__diagram">
+        <svg
+          viewBox="0 0 380 340"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-labelledby="arch-diagram-title"
+          width="380"
+          height="340"
+          style="max-width:100%;height:auto;font-family:var(--font-mono)"
+        >
+          <title id="arch-diagram-title">
+            CyodaLight architecture: your application connects via gRPC to the
+            CyodaLight binary, which contains the Entity Engine, Workflow FSM,
+            and State History. The binary connects to either in-memory storage
+            or PostgreSQL.
+          </title>
+
+          <!-- Background -->
+          <rect width="380" height="340" rx="12" fill="#f1f5f9"/>
+          <rect x="1" y="1" width="378" height="338" rx="11" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+          <!-- "Your Application Code" box -->
+          <rect x="100" y="20" width="180" height="40" rx="6" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+          <text x="190" y="45" text-anchor="middle" font-size="13" fill="#0f172a" font-weight="600">Your Application Code</text>
+
+          <!-- Arrow down -->
+          <line x1="190" y1="60" x2="190" y2="80" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <text x="205" y="75" font-size="11" fill="#475569">gRPC</text>
+
+          <!-- CyodaLight binary box -->
+          <rect x="60" y="80" width="260" height="130" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="190" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="500">[CyodaLight Binary]</text>
+
+          <!-- Inner rows -->
+          <rect x="80" y="112" width="220" height="28" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
+          <text x="190" y="130" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Entity Engine</text>
+
+          <rect x="80" y="148" width="220" height="28" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
+          <text x="190" y="167" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Workflow FSM</text>
+
+          <rect x="80" y="184" width="220" height="20" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
+          <text x="190" y="198" text-anchor="middle" font-size="11" fill="#1e40af">State History</text>
+
+          <!-- Arrow down -->
+          <line x1="190" y1="210" x2="190" y2="235" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+          <!-- Storage box: In-Memory OR PostgreSQL -->
+          <rect x="60" y="235" width="260" height="76" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+
+          <!-- Divider line -->
+          <line x1="190" y1="241" x2="190" y2="305" stroke="#e2e8f0" stroke-width="1"/>
+
+          <!-- In-Memory label -->
+          <text x="125" y="262" text-anchor="middle" font-size="12" fill="#059669" font-weight="600">In-Memory</text>
+          <text x="125" y="280" text-anchor="middle" font-size="10" fill="#475569">0 dependencies</text>
+          <text x="125" y="295" text-anchor="middle" font-size="10" fill="#475569">resets on restart</text>
+
+          <!-- OR label -->
+          <text x="190" y="277" text-anchor="middle" font-size="10" fill="#94a3b8" font-style="italic">OR</text>
+
+          <!-- PostgreSQL label -->
+          <text x="255" y="262" text-anchor="middle" font-size="12" fill="#d97706" font-weight="600">PostgreSQL</text>
+          <text x="255" y="280" text-anchor="middle" font-size="10" fill="#475569">durable state</text>
+          <text x="255" y="295" text-anchor="middle" font-size="10" fill="#475569">persists on restart</text>
+
+          <!-- Arrowhead marker -->
+          <defs>
+            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
