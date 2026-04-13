@@ -2,18 +2,23 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// TODO: Replace DOMAIN_PLACEHOLDER with confirmed domain before launch
-const SITE_URL = 'https://DOMAIN_PLACEHOLDER';
+// GitHub Pages deployment: site is served from a subdirectory.
+// `base` must match the repository name so Astro prefixes all
+// asset paths (CSS, JS, fonts, images) correctly.
+//
+// When a custom domain is confirmed, remove `base` entirely and
+// update `site` to the final domain.
+const GITHUB_PAGES_SITE = 'https://cyoda-platform.github.io';
+const GITHUB_PAGES_BASE = '/cyodalight-website';
 
-// https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: SITE_URL,
+  site: GITHUB_PAGES_SITE,
+  base: GITHUB_PAGES_BASE,
   integrations: [
     sitemap(),
   ],
   build: {
-    // Inline small assets to reduce HTTP requests
     inlineStylesheets: 'never',
   },
 });
