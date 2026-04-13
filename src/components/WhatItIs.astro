@@ -21,23 +21,24 @@
 
         <div class="prose">
           <p>
-            CyodaLight is a Go implementation of the Cyoda platform API. It runs
-            the same entity workflow engine, gRPC integrations, and entity
-            lifecycle behaviour as the full Cyoda platform — in a single binary
-            you can start on your laptop in under two seconds.
+            An EDBMS manages the full lifecycle of typed, stateful business
+            objects — entities. Where a standard database stores rows,
+            CyodaLight tracks state transitions, enforces lifecycle rules,
+            and maintains a temporal audit trail.
           </p>
 
           <p>
-            Two modes are available. In-memory mode has zero external
-            dependencies and resets on restart, making it useful for development
-            and automated testing. PostgreSQL mode persists entity state durably
-            across restarts, suitable for local integration testing against a real
-            database.
+            You define your entity types: the fields they carry, the states
+            they can be in, and the transitions between states. CyodaLight
+            enforces those rules at the API boundary. Invalid transitions are
+            rejected. Every valid transition is recorded immutably.
           </p>
 
           <p>
-            The APIs are identical to Cyoda Cloud. Code written against
-            CyodaLight runs against Cyoda Cloud without modification.
+            Two storage modes are available. In-memory mode starts in under
+            two seconds with zero external dependencies — useful for
+            development and fast test cycles. PostgreSQL mode persists entity
+            state durably across restarts for integration testing.
           </p>
         </div>
       </div>
@@ -58,9 +59,9 @@
           style="max-width:100%;height:auto;font-family:var(--font-mono)"
         >
           <title id="arch-diagram-title">
-            CyodaLight architecture: your application connects via gRPC to the
-            CyodaLight binary, which contains the Entity Engine, Workflow FSM,
-            and State History. The binary connects to either in-memory storage
+            CyodaLight architecture: your application connects via gRPC to
+            CyodaLight, which contains the Entity Store, Lifecycle Engine,
+            and Audit Log. CyodaLight connects to either in-memory storage
             or PostgreSQL.
           </title>
 
@@ -78,17 +79,17 @@
 
           <!-- CyodaLight binary box -->
           <rect x="60" y="80" width="260" height="130" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
-          <text x="190" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="500">[CyodaLight Binary]</text>
+          <text x="190" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="500">CyodaLight</text>
 
           <!-- Inner rows -->
           <rect x="80" y="112" width="220" height="28" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
-          <text x="190" y="130" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Entity Engine</text>
+          <text x="190" y="130" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Entity Store</text>
 
           <rect x="80" y="148" width="220" height="28" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
-          <text x="190" y="167" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Workflow FSM</text>
+          <text x="190" y="167" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="500">Lifecycle Engine</text>
 
           <rect x="80" y="184" width="220" height="20" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>
-          <text x="190" y="198" text-anchor="middle" font-size="11" fill="#1e40af">State History</text>
+          <text x="190" y="198" text-anchor="middle" font-size="11" fill="#1e40af">Audit Log</text>
 
           <!-- Arrow down -->
           <line x1="190" y1="210" x2="190" y2="235" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>

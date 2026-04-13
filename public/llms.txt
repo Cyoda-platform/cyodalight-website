@@ -1,8 +1,9 @@
 # CyodaLight
 
-> CyodaLight is the free, open source local development runtime for the Cyoda entity
-> workflow platform. Written in Go. Single binary. In-memory or PostgreSQL mode.
-> Full gRPC API parity with Cyoda Cloud. Client libraries for Java, Python, Go, and Kotlin.
+> CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime.
+> Define entity types, enforce lifecycle transitions, and query temporal history.
+> Written in Go. Single binary. In-memory or PostgreSQL mode.
+> Client libraries for Java, Python, Go, and Kotlin via gRPC.
 > Apache 2.0 License. No sign-up required.
 
 ## Documentation

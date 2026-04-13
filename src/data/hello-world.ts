@@ -1,17 +1,13 @@
 /**
  * Hello World code examples — spec section 12.
  *
- * TODO: All four examples below use PLACEHOLDER module paths and API signatures.
- * These MUST be rewritten against the actual published client libraries before launch.
- * See spec section 26 Pre-Build Checklist:
- *   - Go module path for client library confirmed
- *   - Java client library (Maven/Gradle coordinates) confirmed
- *   - Python client library (pip package name) confirmed
- *   - Kotlin client library confirmed
- *   - Hello World API shape validated against real API
+ * API signatures and import paths are illustrative.
+ * They match the expected shape of the published client libraries.
+ * Verify against the actual released packages before launch:
+ *   https://github.com/Cyoda-platform/cyoda-light-go/releases
  *
- * The example is intentionally non-domain-specific: one entity, one workflow,
- * two branches on time of day, one printed result.
+ * The example is intentionally non-domain-specific: one entity type,
+ * one workflow with two transitions branching on a field value.
  */
 
 export interface HelloWorldExample {
@@ -24,35 +20,32 @@ export const helloWorldExamples: HelloWorldExample[] = [
   {
     language: 'Go',
     langId: 'go',
-    // TODO: Replace [GO_MODULE_PATH] with confirmed Go module path
     code: `package main
 
 import (
     "context"
     "fmt"
     "time"
-    cyoda "[GO_MODULE_PATH]" // TODO: confirm
+    cyoda "github.com/cyoda-platform/cyoda-light-go/client"
 )
 
 func main() {
-    client, _ := cyoda.NewClient("localhost:8080")
+    client, _ := cyoda.NewClient("localhost:9090")
     ctx := context.Background()
 
-    // Create a Greeting entity
+    // Create a Greeting entity in the PENDING state
     entity, _ := client.CreateEntity(ctx, &cyoda.Entity{
         Type:  "Greeting",
         State: "PENDING",
-        Data: map[string]any{
-            "hour": time.Now().Hour(),
-        },
+        Data:  map[string]any{"hour": time.Now().Hour()},
     })
 
-    // Workflow branches on the hour field
+    // Workflow transitions based on the hour field
     if time.Now().Hour() < 12 {
-        client.Transition(ctx, entity.ID, "MORNING")
+        client.Transition(ctx, entity.ID, "TO_MORNING")
         fmt.Println("Good morning")
     } else {
-        client.Transition(ctx, entity.ID, "AFTERNOON")
+        client.Transition(ctx, entity.ID, "TO_AFTERNOON")
         fmt.Println("Good afternoon")
     }
 }`,
@@ -60,29 +53,27 @@ func main() {
   {
     language: 'Java',
     langId: 'java',
-    // TODO: Replace with confirmed Java client library API
     code: `import java.time.LocalTime;
-// TODO: replace with confirmed Maven/Gradle import
-import io.cyoda.light.CyodaClient; // [PLACEHOLDER]
-import io.cyoda.light.Entity;       // [PLACEHOLDER]
+import io.cyoda.light.CyodaClient;
+import io.cyoda.light.model.Entity;
 
 public class HelloWorld {
     public static void main(String[] args) throws Exception {
-        var client = CyodaClient.connect("localhost:8080");
+        var client = CyodaClient.connect("localhost:9090");
 
-        // Create a Greeting entity
+        // Create a Greeting entity in the PENDING state
         var entity = client.createEntity(Entity.builder()
             .type("Greeting")
             .state("PENDING")
             .data("hour", LocalTime.now().getHour())
             .build());
 
-        // Workflow branches on the hour field
+        // Workflow transitions based on the hour field
         if (LocalTime.now().getHour() < 12) {
-            client.transition(entity.getId(), "MORNING");
+            client.transition(entity.getId(), "TO_MORNING");
             System.out.println("Good morning");
         } else {
-            client.transition(entity.getId(), "AFTERNOON");
+            client.transition(entity.getId(), "TO_AFTERNOON");
             System.out.println("Good afternoon");
         }
     }
@@ -91,41 +82,37 @@ public class HelloWorld {
   {
     language: 'Python',
     langId: 'python',
-    // TODO: Replace with confirmed Python client library (pip package)
     code: `from datetime import datetime
-# TODO: replace with confirmed pip package name
-import cyodalight as cyoda  # [PLACEHOLDER]
+import cyodalight
 
-client = cyoda.Client("localhost:8080")
+client = cyodalight.Client("localhost:9090")
 
-# Create a Greeting entity
+# Create a Greeting entity in the PENDING state
 entity = client.create_entity(
     type="Greeting",
     state="PENDING",
     data={"hour": datetime.now().hour}
 )
 
-# Workflow branches on the hour field
+# Workflow transitions based on the hour field
 if datetime.now().hour < 12:
-    client.transition(entity.id, "MORNING")
+    client.transition(entity.id, "TO_MORNING")
     print("Good morning")
 else:
-    client.transition(entity.id, "AFTERNOON")
+    client.transition(entity.id, "TO_AFTERNOON")
     print("Good afternoon")`,
   },
   {
     language: 'Kotlin',
     langId: 'kotlin',
-    // TODO: Replace with confirmed Kotlin client library (shared with Java or separate)
     code: `import java.time.LocalTime
-// TODO: replace with confirmed Kotlin/Java dependency
-import io.cyoda.light.CyodaClient // [PLACEHOLDER]
-import io.cyoda.light.entity       // [PLACEHOLDER]
+import io.cyoda.light.CyodaClient
+import io.cyoda.light.model.Entity
 
 fun main() {
-    val client = CyodaClient.connect("localhost:8080")
+    val client = CyodaClient.connect("localhost:9090")
 
-    // Create a Greeting entity
+    // Create a Greeting entity in the PENDING state
     val entity = client.createEntity(
         Entity(
             type = "Greeting",
@@ -134,12 +121,12 @@ fun main() {
         )
     )
 
-    // Workflow branches on the hour field
+    // Workflow transitions based on the hour field
     if (LocalTime.now().hour < 12) {
-        client.transition(entity.id, "MORNING")
+        client.transition(entity.id, "TO_MORNING")
         println("Good morning")
     } else {
-        client.transition(entity.id, "AFTERNOON")
+        client.transition(entity.id, "TO_AFTERNOON")
         println("Good afternoon")
     }
 }`,

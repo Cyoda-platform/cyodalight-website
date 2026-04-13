@@ -4,56 +4,62 @@ Last updated: 2026-04-13
 
 ## What is CyodaLight?
 
-CyodaLight is the free, open source local development runtime for the Cyoda entity workflow platform. It is written in Go and distributed as a single binary. It runs the Cyoda entity workflow engine and gRPC API locally with no distributed cluster required.
+CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime. You define your entity types — the fields they carry, the states they can be in, and the valid transitions between states. CyodaLight enforces those rules at the API boundary, records every state change immutably, and lets you query the history of any entity at any point in time.
 
-CyodaLight supports two modes:
+It is written in Go and distributed as a single binary with no distributed cluster required.
+
+CyodaLight supports two storage modes:
 
 - **In-memory mode**: Stores entity state in process memory. Zero external dependencies. Starts in under 2 seconds. Resets when the process stops. Use for development and fast test cycles.
-- **PostgreSQL mode**: Stores entity state durably in a PostgreSQL database. Use when you need persistence across restarts and for integration testing.
+- **PostgreSQL mode**: Stores entity state durably in a PostgreSQL database. Persists across restarts. Use for integration testing and local validation with real persistence.
 
-The gRPC API exposed by CyodaLight is identical to Cyoda Cloud. Code written against CyodaLight runs against Cyoda Cloud without modification. Change the target host — nothing else changes.
+## What is an EDBMS?
+
+An entity database management system (EDBMS) is a runtime that manages the full lifecycle of typed, stateful business objects — entities. Where a standard database stores rows, an EDBMS tracks state transitions, enforces lifecycle rules, and maintains a temporal audit trail. CyodaLight adds a workflow engine to this model: transition rules are explicit, invalid transitions are rejected at the API boundary, and the complete state history is queryable.
 
 ## Key Capabilities
 
-- **In-memory mode**: Zero dependencies. Starts in under 2 seconds. Resets cleanly between runs.
-- **PostgreSQL mode**: Durable, transactional entity storage for local integration testing.
-- **Full workflow engine**: Finite state machine with explicit transition rules, identical to Cyoda Cloud.
-- **gRPC API**: Same API surface as production Cyoda. One config change to switch targets.
-- **Entity lifecycle**: Immutable state history, auditable transitions, queryable at any point in time.
-- **Language-agnostic**: Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.
-- **Test harness**: Reset entity state between tests via a single API call. No teardown scripts needed.
-- **Path to production**: Applications built on CyodaLight deploy to Cyoda Cloud without API changes.
+- **Stateful entities**: Define entity types with typed fields, valid states, and transition rules. CyodaLight enforces the model at runtime.
+- **Lifecycle enforcement**: Finite state machine engine. Invalid transitions are rejected at the API boundary — no defensive code required in your application.
+- **Temporal history**: Every state change is recorded. Query the exact state of any entity at any point in time.
+- **Immutable audit trail**: Non-modifiable record of all transitions: what changed, from which state, to which state, and when.
+- **In-memory mode**: Zero external dependencies. Starts in under 2 seconds. Resets cleanly between test runs.
+- **PostgreSQL mode**: Durable, transactional entity storage. State persists across restarts for local integration testing.
+- **gRPC API**: Language-agnostic API surface. Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.
+- **Test harness**: Reset entity state between tests with a single API call. No teardown scripts, no manual cleanup.
 
 ## Supported Languages
 
-Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the API.
+Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the CyodaLight API directly.
 
 ## Install and Run
 
-TODO: All install commands are [PLACEHOLDER] pending confirmation of the Go binary distribution and Docker image name.
+Download the latest release from GitHub:
+https://github.com/Cyoda-platform/cyoda-light-go/releases
 
 ### In-Memory Mode (recommended for getting started)
 ```bash
-[INSTALL_COMMAND] start --mode=memory
-# Starts at http://localhost:8080
-# gRPC available at localhost:9090
+cyodalight start --mode=memory
+# HTTP API:  http://localhost:8080
+# gRPC:      localhost:9090
 ```
 
 ### PostgreSQL Mode
 ```bash
-[INSTALL_COMMAND] start --mode=postgres \
+cyodalight start --mode=postgres \
   --postgres-url=postgres://localhost:5432/cyoda
 ```
 
 ### Docker
 ```bash
-docker run -p 8080:8080 \
-  [DOCKER_IMAGE]:latest --mode=memory
+docker run -p 8080:8080 -p 9090:9090 \
+  ghcr.io/cyoda-platform/cyodalight:latest \
+  --mode=memory
 ```
 
 ## Hello World Example (Go)
 
-TODO: Module path and API signatures are [PLACEHOLDER] pending confirmation of published client libraries.
+The example below creates a Greeting entity in the PENDING state, then drives a lifecycle transition based on the hour of day. Import paths are illustrative — see docs.cyoda.net for the published client libraries.
 
 ```go
 package main
@@ -62,69 +68,68 @@ import (
     "context"
     "fmt"
     "time"
-    cyoda "[GO_MODULE_PATH]"
+    cyoda "github.com/cyoda-platform/cyoda-light-go/client"
 )
 
 func main() {
-    client, _ := cyoda.NewClient("localhost:8080")
+    client, _ := cyoda.NewClient("localhost:9090")
     ctx := context.Background()
 
     entity, _ := client.CreateEntity(ctx, &cyoda.Entity{
         Type:  "Greeting",
         State: "PENDING",
-        Data: map[string]any{
-            "hour": time.Now().Hour(),
-        },
+        Data:  map[string]any{"hour": time.Now().Hour()},
     })
 
     if time.Now().Hour() < 12 {
-        client.Transition(ctx, entity.ID, "MORNING")
+        client.Transition(ctx, entity.ID, "TO_MORNING")
         fmt.Println("Good morning")
     } else {
-        client.Transition(ctx, entity.ID, "AFTERNOON")
+        client.Transition(ctx, entity.ID, "TO_AFTERNOON")
         fmt.Println("Good afternoon")
     }
 }
 ```
 
-## Development to Production Progression
+## Development to Production Path
 
-1. **CyodaLight — In-Memory**: Start here. Run your entity model, try the APIs, build your workflow logic.
-2. **CyodaLight — PostgreSQL**: Add durable state. Run your integration tests with the same code.
-3. **Cyoda Cloud**: Managed, distributed, horizontally scalable. Same APIs. No code changes.
+1. **CyodaLight — In-Memory**: Start here. Define your entity model, run the workflow engine, iterate on your API logic.
+2. **CyodaLight — PostgreSQL**: Switch to durable storage. Run your integration tests against the same entity model and API.
+3. **Cyoda Cloud**: The managed, distributed option — horizontally scalable, multi-node. Same gRPC API. No application changes needed.
 
 ## FAQ
 
 **What is CyodaLight?**
-CyodaLight is a free, open source Go implementation of the Cyoda platform. It runs the Cyoda entity workflow engine and gRPC API locally, as a single binary, with no distributed cluster required. It supports in-memory mode for development and PostgreSQL mode for durable local testing.
+CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime. You define your entity types, the valid states each entity can be in, and the transition rules between states. CyodaLight enforces those rules, records every state change, and lets you query the history of any entity at any point in time. It runs as a single binary with no distributed cluster required.
+
+**What is an EDBMS?**
+An entity database management system (EDBMS) is a runtime that manages the full lifecycle of typed, stateful business objects — entities. Where a standard database stores rows, an EDBMS tracks state transitions, enforces lifecycle rules, and maintains a temporal audit trail. CyodaLight adds a workflow engine to this model: transition rules are explicit, invalid transitions are rejected at the API boundary, and the complete state history is queryable.
 
 **Is it free and open source?**
 Yes. CyodaLight is released under the Apache 2.0 License. There are no usage limits, no telemetry, and no account required to run it.
 
 **What is the difference between in-memory and PostgreSQL mode?**
-In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops. PostgreSQL mode stores entity state durably in a PostgreSQL database. Use in-memory for development and fast test cycles; use PostgreSQL when you need persistence across restarts.
+In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops — useful for development and fast test cycles. PostgreSQL mode stores entity state durably in a PostgreSQL database, persisting across restarts. Use PostgreSQL mode for integration testing or when you need state to survive a process restart.
 
 **Who is CyodaLight for?**
-Backend developers building stateful, workflow-driven applications. Technical evaluators assessing Cyoda before a commercial deployment. Teams wanting to test their application logic locally before moving to Cyoda Cloud.
-
-**Can I build locally and deploy to Cyoda later?**
-Yes. CyodaLight exposes the same gRPC API as Cyoda Cloud. Applications built against CyodaLight run against Cyoda Cloud without API changes. Change the target host; nothing else changes.
+Backend developers building stateful, event-driven, or workflow-driven systems who need a local runtime that enforces business rules and tracks state history. Teams replacing hand-rolled state machines and audit log tables. Developers who want a clean EDBMS API with no cloud dependency for local development and testing.
 
 **What languages are supported?**
-Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the API.
+Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the CyodaLight API directly.
 
-**How does CyodaLight relate to Cyoda Cloud?**
-CyodaLight is the local development version of the Cyoda platform. Cyoda Cloud is the fully distributed, managed version with horizontal scalability, multi-node replication, and Cassandra-backed storage. CyodaLight is designed to be API-compatible so that local work transfers to the cloud platform directly.
+**Can I deploy to production with the same code?**
+Yes. CyodaLight exposes the same gRPC API as Cyoda Cloud — the managed, distributed production option built by the Cyoda team. Applications developed against CyodaLight run against Cyoda Cloud without API changes. Point the client at a different host; nothing else changes.
 
 **Where is the documentation?**
-Full documentation is at docs.cyoda.net. The CyodaLight quick start guide is the recommended first stop.
+Full documentation is at docs.cyoda.net. The CyodaLight quickstart guide covers installation, entity definition, and your first workflow in under ten minutes.
 
 ## Links
 
 - GitHub: https://github.com/Cyoda-platform/cyoda-light-go
+- Releases: https://github.com/Cyoda-platform/cyoda-light-go/releases
 - Documentation: https://docs.cyoda.net
 - Quick Start: https://docs.cyoda.net/cyodalight/quickstart
-- Cyoda Platform: https://cyoda.com
+- Cyoda Cloud: https://cyoda.com
 
 ## License
 

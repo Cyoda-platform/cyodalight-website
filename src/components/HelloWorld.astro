@@ -6,8 +6,8 @@
  * Tab state is persisted in localStorage (shared key with any other
  * LanguageTabGroup instances on the page).
  *
- * All four code examples have [PLACEHOLDER] module paths and API signatures.
- * They must be replaced with confirmed values before launch.
+ * Code examples use illustrative API signatures.
+ * Verify import paths against published client libraries before launch.
  */
 import LanguageTabGroup from './LanguageTabGroup.astro';
 import { helloWorldExamples } from '../data/hello-world';
@@ -26,16 +26,20 @@ import { site } from '../data/site';
         <h2 class="section-heading" id="hello-world-heading">Hello World</h2>
 
         <p class="hello-world__framing">
-          The smallest useful Cyoda example: one entity, one workflow, one
-          branch, one result.
+          One entity, one workflow, two transitions, one result.
         </p>
 
         <div class="prose">
           <p>
-            This example creates a <code>Greeting</code> entity, runs it
-            through a two-state workflow, and prints the result based on the
-            time of day. It works identically against CyodaLight and Cyoda
-            Cloud.
+            This example creates a <code>Greeting</code> entity in the
+            <code>PENDING</code> state, then drives a lifecycle transition
+            based on the hour of day. CyodaLight enforces that only valid
+            transitions are allowed and records each one immutably.
+          </p>
+          <p class="hello-world__note">
+            Import paths are illustrative — see
+            <a href={site.docs} target="_blank" rel="noopener noreferrer">docs.cyoda.net</a>
+            for the published client libraries.
           </p>
         </div>
 

@@ -2,9 +2,6 @@
 /**
  * HeroSection — two-column hero: prose left, install panel right.
  * Spec reference: section 9, section 23.
- *
- * The install command placeholders are visible in the code panels.
- * They must be replaced with confirmed values before launch.
  */
 import Badge from './Badge.astro';
 import InstallPanel from './InstallPanel.astro';
@@ -26,12 +23,13 @@ import { installTabs } from '../data/install';
         </div>
 
         <h1 class="hero__headline" id="hero-heading">
-          Run workflow-driven backend applications locally.
+          The open-source EDBMS with a built-in workflow engine.
         </h1>
 
         <p class="hero__subhead">
-          CyodaLight is the open-source local runtime for Cyoda.
-          Run in memory for speed, or use PostgreSQL for durable state.
+          CyodaLight manages stateful entities, enforces lifecycle transitions,
+          and keeps a complete audit trail. Single binary. Zero dependencies
+          in memory mode.
         </p>
 
         <div class="hero__actions">

@@ -14,10 +14,10 @@ export const version =
 
 export const site = {
   name: 'CyodaLight',
-  tagline: 'Run workflow-driven backend applications locally.',
+  tagline: 'The open-source EDBMS and workflow runtime.',
   url: `https://${DOMAIN_PLACEHOLDER}`, // TODO: update with confirmed domain
   description:
-    'CyodaLight is a free, open source Go runtime for the Cyoda entity workflow platform. In-memory or PostgreSQL mode. No cluster required. Java, Python, Go, and Kotlin via gRPC.',
+    'CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime. Define entity types, enforce lifecycle transitions, and query temporal history. Single binary. Java, Python, Go, and Kotlin via gRPC.',
 
   // External links — all confirmed in spec
   github: 'https://github.com/Cyoda-platform/cyoda-light-go',
@@ -36,15 +36,14 @@ export const site = {
   ogImageHeight: 630,
 
   // Meta
-  title: 'CyodaLight — Run Cyoda Workflows Locally | Open Source',
-  ogTitle: 'CyodaLight — Run Cyoda Workflows Locally',
+  title: 'CyodaLight — Open-Source EDBMS and Workflow Runtime',
+  ogTitle: 'CyodaLight — Open-Source EDBMS and Workflow Runtime',
   ogDescription:
-    'Free, open source local runtime for the Cyoda entity workflow platform. Starts in under 2 seconds. In-memory or PostgreSQL mode.',
+    'Define stateful entities, enforce lifecycle transitions, and query temporal history. Single binary. In-memory or PostgreSQL. Apache 2.0.',
   twitterDescription:
-    'Open source Go runtime for Cyoda entity workflows. In-memory or PostgreSQL. Java, Python, Go, Kotlin via gRPC.',
+    'Open-source EDBMS and workflow runtime. Stateful entities, lifecycle enforcement, immutable audit trail. Single binary. Java, Python, Go, Kotlin.',
 
   // Legal
-  // TODO: confirm copyright holder name
   copyrightHolder: 'Cyoda Ltd',
   copyrightYear: 2026,
   licenseUrl: 'https://www.apache.org/licenses/LICENSE-2.0',

@@ -11,51 +11,51 @@ export interface Feature {
 
 export const features: Feature[] = [
   {
+    iconId: 'icon-entity',
+    title: 'Stateful entities',
+    description:
+      'Define entity types with typed fields, valid states, and transition rules. CyodaLight enforces the model at runtime.',
+  },
+  {
+    iconId: 'icon-workflow',
+    title: 'Lifecycle enforcement',
+    description:
+      'Finite state machine engine. Invalid transitions are rejected at the API boundary — no defensive code required in your application.',
+  },
+  {
+    iconId: 'icon-history',
+    title: 'Temporal history',
+    description:
+      'Every state change is recorded. Query the exact state of any entity at any point in time.',
+  },
+  {
+    iconId: 'icon-audit',
+    title: 'Immutable audit trail',
+    description:
+      'Non-modifiable record of all transitions: what changed, from which state, to which state, and when.',
+  },
+  {
     iconId: 'icon-memory',
     title: 'In-memory mode',
     description:
-      'Zero dependencies. Starts in under 2 seconds. Resets cleanly between runs.',
+      'Zero external dependencies. Starts in under 2 seconds. Resets cleanly between test runs.',
   },
   {
     iconId: 'icon-postgres',
     title: 'PostgreSQL mode',
     description:
-      'Durable, transactional entity storage for local integration testing.',
-  },
-  {
-    iconId: 'icon-workflow',
-    title: 'Full workflow engine',
-    description:
-      'Finite state machine with explicit transition rules, identical to Cyoda Cloud.',
+      'Durable, transactional entity storage. State persists across restarts for local integration testing.',
   },
   {
     iconId: 'icon-grpc',
     title: 'gRPC API',
     description:
-      'Same API surface as production Cyoda. One config change to switch targets.',
-  },
-  {
-    iconId: 'icon-history',
-    title: 'Entity lifecycle',
-    description:
-      'Immutable state history, auditable transitions, queryable at any point in time.',
-  },
-  {
-    iconId: 'icon-languages',
-    title: 'Language-agnostic',
-    description:
-      'Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.',
+      'Language-agnostic API surface. Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.',
   },
   {
     iconId: 'icon-test',
     title: 'Test harness',
     description:
-      'Reset entity state between tests via a single API call. No teardown scripts needed.',
-  },
-  {
-    iconId: 'icon-deploy',
-    title: 'Path to production',
-    description:
-      'Applications built on CyodaLight deploy to Cyoda Cloud without API changes.',
+      'Reset entity state between tests with a single API call. No teardown scripts, no manual cleanup.',
   },
 ];
