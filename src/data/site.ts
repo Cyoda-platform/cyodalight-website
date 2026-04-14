@@ -13,11 +13,11 @@ export const version =
   import.meta.env.CYODALIGHT_VERSION ?? '[VERSION_PLACEHOLDER]';
 
 export const site = {
-  name: 'CyodaLight',
+  name: 'Cyoda',
   tagline: 'The open-source EDBMS and workflow runtime.',
   url: `https://${DOMAIN_PLACEHOLDER}`, // TODO: update with confirmed domain
   description:
-    'CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime. Define entity types, enforce lifecycle transitions, and query temporal history. Single binary. Java, Python, Go, and Kotlin via gRPC.',
+    'Cyoda is an open-source entity database management system (EDBMS) and workflow runtime. Define entity types, enforce lifecycle transitions, and query temporal history. Single binary. Java, Python, Go, and Kotlin via gRPC.',
 
   // External links — all confirmed in spec
   github: 'https://github.com/Cyoda-platform/cyoda-light-go',
@@ -28,6 +28,7 @@ export const site = {
   docsEntities: 'https://docs.cyoda.net/cyodalight/entities',
   docsConfig: 'https://docs.cyoda.net/cyodalight/config',
   docsExamples: 'https://docs.cyoda.net/cyodalight/examples',
+  cyodaCloud: 'https://ai.cyoda.net/',
   cyoda: 'https://cyoda.com',
 
   // Open Graph
@@ -36,8 +37,8 @@ export const site = {
   ogImageHeight: 630,
 
   // Meta
-  title: 'CyodaLight — Open-Source EDBMS and Workflow Runtime',
-  ogTitle: 'CyodaLight — Open-Source EDBMS and Workflow Runtime',
+  title: 'Cyoda — Open-Source EDBMS and Workflow Runtime',
+  ogTitle: 'Cyoda — Open-Source EDBMS and Workflow Runtime',
   ogDescription:
     'Define stateful entities, enforce lifecycle transitions, and query temporal history. Single binary. In-memory or PostgreSQL. Apache 2.0.',
   twitterDescription:

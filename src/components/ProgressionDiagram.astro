@@ -1,68 +1,85 @@
 ---
 /**
- * ProgressionDiagram — three-stage development-to-production path.
+ * ConsumptionModel — three ways to use Cyoda.
+ * Run it yourself / Cyoda Cloud / Enterprise Cyoda
  * Spec reference: section 14, section 23.
  *
  * Static CSS-rendered. No SVG required — pure HTML + CSS.
- * Three stages with arrows between them.
+ * Reuses .progression layout. No arrows — three options are not sequential.
  */
 import { site } from '../data/site';
 ---
 
 <section
   class="section"
-  id="start-local"
-  aria-labelledby="start-local-heading"
+  id="how-to-use"
+  aria-labelledby="how-to-use-heading"
 >
   <div class="container">
-    <h2 class="section-heading" id="start-local-heading">
-      One API. Local or cloud.
+    <h2 class="section-heading" id="how-to-use-heading">
+      Three ways to use Cyoda
     </h2>
 
     <div class="progression">
-      <div class="progression__diagram" role="list" aria-label="Development to production stages">
-        <!-- Stage 1 -->
+      <div class="progression__diagram" role="list" aria-label="Cyoda deployment options">
+        <!-- Option 1: Run it yourself -->
         <div class="progression__stage" role="listitem">
-          <div class="progression__stage-label">Development</div>
-          <div class="progression__stage-title">CyodaLight &middot; In-Memory</div>
+          <div class="progression__stage-label">Run it yourself</div>
+          <div class="progression__stage-title">Free &middot; Apache 2.0</div>
           <p class="progression__stage-desc">
-            Start here. Define your entity model, run the workflow engine,
-            iterate on your API logic.
+            Download the binary and run Cyoda on your own machine or
+            infrastructure. Local development, self-hosting, and
+            experimentation. No account required.
           </p>
+          <div class="progression__stage-cta">
+            <a
+              href={site.githubReleases}
+              class="btn btn--text"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download from GitHub &rarr;
+            </a>
+          </div>
         </div>
 
-        <!-- Arrow -->
-        <div class="progression__arrow" aria-hidden="true">&rarr;</div>
-
-        <!-- Stage 2 -->
-        <div class="progression__stage" role="listitem">
-          <div class="progression__stage-label">Integration Testing</div>
-          <div class="progression__stage-title">CyodaLight &middot; PostgreSQL</div>
+        <!-- Option 2: Cyoda Cloud -->
+        <div class="progression__stage progression__stage--highlight" role="listitem">
+          <div class="progression__stage-label">Cyoda Cloud</div>
+          <div class="progression__stage-title">Hosted SaaS</div>
           <p class="progression__stage-desc">
-            Switch to durable storage. Run your integration tests
-            against the same entity model and API.
+            Managed, hosted infrastructure. No binary to install,
+            no cluster to operate. Get started immediately.
           </p>
+          <div class="progression__stage-cta">
+            <a
+              href={site.cyodaCloud}
+              class="btn btn--primary"
+            >
+              Try Cyoda Cloud &rarr;
+            </a>
+          </div>
         </div>
 
-        <!-- Arrow -->
-        <div class="progression__arrow" aria-hidden="true">&rarr;</div>
-
-        <!-- Stage 3 -->
+        <!-- Option 3: Enterprise Cyoda -->
         <div class="progression__stage" role="listitem">
-          <div class="progression__stage-label">Production</div>
-          <div class="progression__stage-title">Cyoda Cloud</div>
+          <div class="progression__stage-label">Enterprise Cyoda</div>
+          <div class="progression__stage-title">Scalable deployment</div>
           <p class="progression__stage-desc">
-            The managed, distributed option — horizontally scalable, multi-node.
-            Same gRPC API. No application changes needed.
+            Larger-scale infrastructure with enterprise support, SLA,
+            and dedicated engagement for organisations with advanced
+            operational requirements.
           </p>
+          <div class="progression__stage-cta">
+            <a
+              href={site.cyoda}
+              class="btn btn--text"
+            >
+              Talk to us &rarr;
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="progression__cta">
-      <a href={site.cyoda} class="btn btn--text" target="_blank" rel="noopener noreferrer">
-        Learn about Cyoda Cloud &rarr;
-      </a>
     </div>
   </div>
 </section>

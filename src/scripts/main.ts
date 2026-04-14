@@ -1,5 +1,5 @@
 /**
- * main.ts — CyodaLight site JavaScript
+ * main.ts — Cyoda site JavaScript
  *
  * Handles only:
  *   1. Language tab switching (LanguageTabGroup) with localStorage persistence

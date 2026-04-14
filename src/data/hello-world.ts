@@ -83,9 +83,9 @@ public class HelloWorld {
     language: 'Python',
     langId: 'python',
     code: `from datetime import datetime
-import cyodalight
+import cyoda
 
-client = cyodalight.Client("localhost:9090")
+client = cyoda.Client("localhost:9090")
 
 # Create a Greeting entity in the PENDING state
 entity = client.create_entity(

@@ -14,7 +14,7 @@ export const features: Feature[] = [
     iconId: 'icon-entity',
     title: 'Stateful entities',
     description:
-      'Define entity types with typed fields, valid states, and transition rules. CyodaLight enforces the model at runtime.',
+      'Define entity types with typed fields, valid states, and transition rules. Cyoda enforces the model at runtime.',
   },
   {
     iconId: 'icon-workflow',

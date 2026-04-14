@@ -17,19 +17,19 @@
     <div class="two-col">
       <!-- Prose -->
       <div>
-        <h2 class="section-heading" id="what-it-is-heading">What it is</h2>
+        <h2 class="section-heading" id="what-it-is-heading">What Cyoda is</h2>
 
         <div class="prose">
           <p>
             An EDBMS manages the full lifecycle of typed, stateful business
             objects — entities. Where a standard database stores rows,
-            CyodaLight tracks state transitions, enforces lifecycle rules,
+            Cyoda tracks state transitions, enforces lifecycle rules,
             and maintains a temporal audit trail.
           </p>
 
           <p>
             You define your entity types: the fields they carry, the states
-            they can be in, and the transitions between states. CyodaLight
+            they can be in, and the transitions between states. Cyoda
             enforces those rules at the API boundary. Invalid transitions are
             rejected. Every valid transition is recorded immutably.
           </p>
@@ -38,7 +38,7 @@
             Two storage modes are available. In-memory mode starts in under
             two seconds with zero external dependencies — useful for
             development and fast test cycles. PostgreSQL mode persists entity
-            state durably across restarts for integration testing.
+            state durably across restarts for integration and end-to-end testing.
           </p>
         </div>
       </div>
@@ -59,9 +59,9 @@
           style="max-width:100%;height:auto;font-family:var(--font-mono)"
         >
           <title id="arch-diagram-title">
-            CyodaLight architecture: your application connects via gRPC to
-            CyodaLight, which contains the Entity Store, Lifecycle Engine,
-            and Audit Log. CyodaLight connects to either in-memory storage
+            Cyoda architecture: your application connects via gRPC to
+            Cyoda, which contains the Entity Store, Lifecycle Engine,
+            and Audit Log. Cyoda connects to either in-memory storage
             or PostgreSQL.
           </title>
 
@@ -77,9 +77,9 @@
           <line x1="190" y1="60" x2="190" y2="80" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
           <text x="205" y="75" font-size="11" fill="#475569">gRPC</text>
 
-          <!-- CyodaLight binary box -->
+          <!-- Cyoda binary box -->
           <rect x="60" y="80" width="260" height="130" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
-          <text x="190" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="500">CyodaLight</text>
+          <text x="190" y="103" text-anchor="middle" font-size="12" fill="#475569" font-weight="500">Cyoda</text>
 
           <!-- Inner rows -->
           <rect x="80" y="112" width="220" height="28" rx="4" fill="#eff6ff" stroke="#e2e8f0" stroke-width="1"/>

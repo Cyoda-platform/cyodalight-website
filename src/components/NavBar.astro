@@ -1,39 +1,30 @@
 ---
 /**
- * NavBar — sticky 56px header with three nav links and mobile hamburger.
+ * NavBar — sticky 56px header with nav links and mobile hamburger.
  * Spec reference: section 8, section 23.
  *
  * GitHub star count is fetched client-side by main.ts.
  * If the fetch fails, the star count span is hidden gracefully.
- *
- * TODO: Replace the text wordmark with SVG logo once asset is provided.
- * See spec section 26 Pre-Build Checklist: "CyodaLight logo and wordmark provided as SVG"
  */
 import { site } from '../data/site';
 
-const navLinks = [
-  { label: 'Docs', href: site.docs },
-  { label: 'GitHub', href: site.github, id: 'nav-github' },
-  { label: 'Cyoda', href: site.cyoda },
-];
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="navbar" role="banner">
   <div class="container">
     <nav class="navbar__inner" aria-label="Main navigation">
-      <!-- Logo / Wordmark -->
-      <!-- TODO: Replace with SVG logo asset when provided -->
-      <a href="/" class="navbar__logo" aria-label="CyodaLight home">
+      <!-- Wordmark -->
+      <a href={base} class="navbar__logo" aria-label="Cyoda home">
         <span class="navbar__wordmark">
-          <span class="navbar__wordmark-cyoda">cyoda</span><span
-            class="navbar__wordmark-light">light</span>
+          <span class="navbar__wordmark-cyoda">Cyoda</span>
         </span>
       </a>
 
       <!-- Desktop nav links -->
       <ul class="navbar__links" role="list">
         <li>
-          <a href={site.docs} class="navbar__link" target="_blank" rel="noopener noreferrer">
+          <a href={site.docs} class="navbar__link">
             Docs
           </a>
         </li>
@@ -42,6 +33,8 @@ const navLinks = [
             href={site.github}
             class="navbar__link navbar__github"
             id="nav-github-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             GitHub
             <span
@@ -53,8 +46,13 @@ const navLinks = [
           </a>
         </li>
         <li>
-          <a href={site.cyoda} class="navbar__link" target="_blank" rel="noopener noreferrer">
-            Cyoda
+          <a href={site.cyodaCloud} class="navbar__link">
+            Cyoda Cloud
+          </a>
+        </li>
+        <li>
+          <a href={site.cyoda} class="navbar__link">
+            Enterprise Cyoda
           </a>
         </li>
       </ul>
@@ -85,13 +83,16 @@ const navLinks = [
 >
   <ul class="navbar__drawer-links" role="list">
     <li>
-      <a href={site.docs} class="navbar__link" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a href={site.docs} class="navbar__link">Docs</a>
     </li>
     <li>
-      <a href={site.github} class="navbar__link">GitHub</a>
+      <a href={site.github} class="navbar__link" target="_blank" rel="noopener noreferrer">GitHub</a>
     </li>
     <li>
-      <a href={site.cyoda} class="navbar__link" target="_blank" rel="noopener noreferrer">Cyoda</a>
+      <a href={site.cyodaCloud} class="navbar__link">Cyoda Cloud</a>
+    </li>
+    <li>
+      <a href={site.cyoda} class="navbar__link">Enterprise Cyoda</a>
     </li>
   </ul>
 </div>

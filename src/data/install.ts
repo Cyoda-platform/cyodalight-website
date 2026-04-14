@@ -21,7 +21,7 @@ export const installTabs: InstallTab[] = [
     code: `# Download from GitHub Releases:
 # github.com/Cyoda-platform/cyoda-light-go/releases
 
-cyodalight start --mode=memory
+cyoda start --mode=memory
 
 # HTTP API:  http://localhost:8080
 # gRPC:      localhost:9090`,
@@ -29,17 +29,17 @@ cyodalight start --mode=memory
   {
     label: 'PostgreSQL',
     language: 'bash',
-    code: `cyodalight start --mode=postgres \\
+    code: `cyoda start --mode=postgres \\
   --postgres-url=postgres://localhost:5432/cyoda`,
   },
   {
     label: 'Docker',
     language: 'bash',
     code: `docker run -p 8080:8080 -p 9090:9090 \\
-  ghcr.io/cyoda-platform/cyodalight:latest \\
+  ghcr.io/cyoda-platform/cyoda:latest \\
   --mode=memory`,
   },
 ];
 
 // Shortest single command for the Final CTA section
-export const shortestInstallCommand = `cyodalight start --mode=memory`;
+export const shortestInstallCommand = `cyoda start --mode=memory`;

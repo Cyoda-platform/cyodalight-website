@@ -1,6 +1,6 @@
-# CyodaLight
+# Cyoda
 
-> CyodaLight is an open-source entity database management system (EDBMS) and workflow runtime.
+> Cyoda is an open-source entity database management system (EDBMS) and workflow runtime.
 > Define entity types, enforce lifecycle transitions, and query temporal history.
 > Written in Go. Single binary. In-memory or PostgreSQL mode.
 > Client libraries for Java, Python, Go, and Kotlin via gRPC.
@@ -8,7 +8,7 @@
 
 ## Documentation
 
-- [Quick Start](https://docs.cyoda.net/cyodalight/quickstart): Get CyodaLight running in under 5 minutes
+- [Quick Start](https://docs.cyoda.net/cyodalight/quickstart): Get Cyoda running in under 5 minutes
 - [API Reference](https://docs.cyoda.net/cyodalight/api): Full gRPC API documentation
 - [Entity Model](https://docs.cyoda.net/cyodalight/entities): How entities and state machines work
 - [Configuration](https://docs.cyoda.net/cyodalight/config): In-memory and PostgreSQL configuration
