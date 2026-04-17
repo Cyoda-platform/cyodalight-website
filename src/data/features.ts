@@ -14,48 +14,48 @@ export const features: Feature[] = [
     iconId: 'icon-entity',
     title: 'Stateful entities',
     description:
-      'Define entity types with typed fields, valid states, and transition rules. Cyoda enforces the model at runtime.',
+      'Define typed entity types with fields, valid states, lifecycle guards, and transition rules. The model is explicit, version-controlled, and enforced at runtime.',
   },
   {
     iconId: 'icon-workflow',
-    title: 'Lifecycle enforcement',
+    title: 'State-machine workflows',
     description:
-      'Finite state machine engine. Invalid transitions are rejected at the API boundary — no defensive code required in your application.',
+      'Workflows run as finite state machines. Invalid transitions are rejected at the API boundary. Transition logic is declared, not buried in application code.',
+  },
+  {
+    iconId: 'icon-events',
+    title: 'Event-driven processing',
+    description:
+      'Events trigger entity lifecycle transitions. The event model is first-class, explicit, and traceable — not routed through a separate bus or implicit callbacks.',
+  },
+  {
+    iconId: 'icon-transaction',
+    title: 'Transactional consistency',
+    description:
+      'State transitions are atomic. An entity\'s state and its history are always consistent. No partial updates. No reconciliation logic required.',
   },
   {
     iconId: 'icon-history',
     title: 'Temporal history',
     description:
-      'Every state change is recorded. Query the exact state of any entity at any point in time.',
+      'Every state change is recorded. Query the exact state of any entity at any point in time. Point-in-time access is built in, not retrofitted.',
   },
   {
     iconId: 'icon-audit',
     title: 'Immutable audit trail',
     description:
-      'Non-modifiable record of all transitions: what changed, from which state, to which state, and when.',
-  },
-  {
-    iconId: 'icon-memory',
-    title: 'In-memory mode',
-    description:
-      'Zero external dependencies. Starts in under 2 seconds. Resets cleanly between test runs.',
-  },
-  {
-    iconId: 'icon-postgres',
-    title: 'PostgreSQL mode',
-    description:
-      'Durable, transactional entity storage. State persists across restarts for local integration testing.',
+      'A non-modifiable record of every transition: entity, state change, actor, timestamp. Compliance and debugging share the same source of truth.',
   },
   {
     iconId: 'icon-grpc',
     title: 'gRPC API',
     description:
-      'Language-agnostic API surface. Client libraries for Java, Python, Go, and Kotlin. Any gRPC-capable language works.',
+      'Language-agnostic API with client libraries for Java, Python, Go, and Kotlin. One consistent API surface in development and production.',
   },
   {
-    iconId: 'icon-test',
-    title: 'Test harness',
+    iconId: 'icon-ai',
+    title: 'AI-ready model',
     description:
-      'Reset entity state between tests with a single API call. No teardown scripts, no manual cleanup.',
+      'Explicit entity state and defined transitions give AI tools a structured, queryable model. More precise reasoning, less inference from scattered code.',
   },
 ];

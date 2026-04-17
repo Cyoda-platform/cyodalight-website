@@ -31,6 +31,16 @@ export const faqItems: FaqItem[] = [
       'Systems where entities change state over time and where the history of those changes matters: workflow automation, order management, approval pipelines, event-driven backends, audit-sensitive applications, and anywhere you would otherwise build a hand-rolled state machine with an audit log.',
   },
   {
+    question: 'What does it mean to have workflow, state, events, and transactions in one model?',
+    answer:
+      'Most backend systems require separate tools for each: a workflow engine, a state machine library, an event bus, and a transaction manager, connected by integration code. Each connection point is a source of inconsistency, hidden state, and operational complexity. Cyoda runs these capabilities as one runtime. Entity state, lifecycle transitions, event-driven processing, and transactional consistency all operate within the same model — with no integration layer between them.',
+  },
+  {
+    question: 'How does Cyoda improve AI-assisted development?',
+    answer:
+      'AI tools generate better code when the system model is explicit and structured. Because Cyoda defines entity types, valid states, and transition rules as queryable schema rather than implicit application logic, AI tools can reason about system behavior from the model rather than inferring it from scattered code. The result is more accurate code generation, more precise debugging assistance, and a lower risk of incorrect state handling in generated output.',
+  },
+  {
     question: 'What is the difference between in-memory and PostgreSQL mode?',
     answer:
       'In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops — useful for development and fast test cycles. PostgreSQL mode stores entity state durably in a PostgreSQL database, persisting across restarts. Use PostgreSQL mode for integration testing or when you need state to survive a process restart.',
