@@ -990,6 +990,56 @@ samp {
 }
 
 /* --------------------------------------------------------------------------
+   20b. Growth Path Section
+   -------------------------------------------------------------------------- */
+
+.growth-path__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.growth-path__heading {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  text-align: center;
+  max-width: 720px;
+}
+
+@media (min-width: 640px) {
+  .growth-path__heading {
+    font-size: var(--text-3xl);
+  }
+}
+
+.growth-path__intro,
+.growth-path__outro {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  text-align: center;
+  max-width: 640px;
+}
+
+.growth-path__image-wrap {
+  width: 100%;
+  max-width: 900px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.growth-path__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
    20. FAQ Accordion
    -------------------------------------------------------------------------- */
 

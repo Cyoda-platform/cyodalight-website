@@ -2,17 +2,18 @@
 /**
  * index.astro — Cyoda homepage.
  *
- * Section order is fixed per spec section 6:
+ * Section order:
  *   1. Header / nav        — in BaseLayout
  *   2. Hero                — HeroSection
  *   3. Proof bar           — ProofBar
  *   4. What it is          — WhatItIs
  *   5. Hello World         — HelloWorld
  *   6. Key capabilities    — FeatureGrid
- *   7. Start local, deploy — ProgressionDiagram
- *   8. FAQ                 — FAQSection
- *   9. Final CTA           — FinalCTA
- *  10. Footer              — in BaseLayout
+ *   7. Growth path         — GrowthPath
+ *   8. Three ways to use   — ProgressionDiagram
+ *   9. FAQ                 — FAQSection
+ *  10. Final CTA           — FinalCTA
+ *  11. Footer              — in BaseLayout
  *
  * This file contains only section composition and data plumbing.
  * No layout logic lives here.
@@ -23,6 +24,7 @@ import ProofBar from '../components/ProofBar.astro';
 import WhatItIs from '../components/WhatItIs.astro';
 import HelloWorld from '../components/HelloWorld.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
+import GrowthPath from '../components/GrowthPath.astro';
 import ProgressionDiagram from '../components/ProgressionDiagram.astro';
 import FAQSection from '../components/FAQSection.astro';
 import FinalCTA from '../components/FinalCTA.astro';
@@ -55,12 +57,15 @@ import { features } from '../data/features';
     </div>
   </section>
 
-  <!-- 7. Start local, deploy later -->
+  <!-- 7. Growth path — runtime mode progression -->
+  <GrowthPath />
+
+  <!-- 8. Three ways to use Cyoda -->
   <ProgressionDiagram />
 
-  <!-- 8. FAQ -->
+  <!-- 9. FAQ -->
   <FAQSection />
 
-  <!-- 9. Final CTA -->
+  <!-- 10. Final CTA -->
   <FinalCTA />
 </BaseLayout>
