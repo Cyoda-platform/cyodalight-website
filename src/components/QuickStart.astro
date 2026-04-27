@@ -1,0 +1,87 @@
+---
+/**
+ * QuickStart — compact local onramp that links to canonical docs for detail.
+ */
+import CodeBlock from './CodeBlock.astro';
+import HelloWorldWorkflowViewer from './HelloWorldWorkflowViewer';
+import { site } from '../data/site';
+import { firstEntityCommands } from '../data/install';
+---
+
+<section
+  class="section section--alt"
+  id="install-get-started"
+  aria-labelledby="quickstart-heading"
+>
+  <div class="container">
+    <div class="quickstart">
+      <div class="quickstart__copy">
+        <h2 class="section-heading" id="quickstart-heading">
+          Install and get started
+        </h2>
+
+        <p class="quickstart__framing">
+          The shortest useful path: install the binary, start the local server,
+          import a workflow, create an entity, move it through a transition,
+          and read the state back. The graph shows the Hello World workflow
+          shape; the commands keep the first local API loop compact.
+        </p>
+
+        <ol class="quickstart__steps">
+          <li>
+            <strong>Install:</strong>
+            <code>brew install cyoda-platform/cyoda-go/cyoda</code>
+          </li>
+          <li>
+            <strong>Run:</strong>
+            <code>cyoda</code>
+            starts the local server on <code>localhost:8080</code>.
+          </li>
+          <li>
+            <strong>Authenticate locally:</strong>
+            mock auth is the default, so no bearer token is required.
+          </li>
+          <li>
+            <strong>Keep going:</strong>
+            use the docs for schemas, processors, criteria, deployment options,
+            and API reference.
+          </li>
+        </ol>
+
+        <a
+          href={site.docsQuickstart}
+          class="quickstart__link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          &rarr; Full install guide on docs.cyoda.net
+        </a>
+
+      </div>
+
+      <div
+        class="workflow-artifact"
+        aria-label="Hello World workflow graph"
+      >
+        <div class="workflow-artifact__header">
+          <div>
+            <p class="workflow-artifact__eyebrow">Workflow artifact</p>
+            <h3 class="workflow-artifact__title">HelloWorldWorkflow</h3>
+          </div>
+          <span class="workflow-artifact__badge">Editable</span>
+        </div>
+        <div class="workflow-artifact__canvas">
+          <HelloWorldWorkflowViewer client:only="react" />
+        </div>
+      </div>
+
+      <div class="quickstart__commands">
+        <CodeBlock
+          code={firstEntityCommands}
+          language="bash"
+          label="local-api-loop.sh"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -20,14 +20,14 @@ export const site = {
     'Cyoda is an open-source entity database management system (EDBMS) and workflow runtime. Define entity types, enforce lifecycle transitions, and query temporal history. Single binary. Java, Python, Go, and Kotlin via gRPC.',
 
   // External links — all confirmed in spec
-  github: 'https://github.com/Cyoda-platform/cyoda-light-go',
-  githubReleases: 'https://github.com/Cyoda-platform/cyoda-light-go/releases',
+  github: 'https://github.com/Cyoda-platform/cyoda-go',
+  githubReleases: 'https://github.com/Cyoda-platform/cyoda-go/releases',
   docs: 'https://docs.cyoda.net',
-  docsQuickstart: 'https://docs.cyoda.net/cyodalight/quickstart',
-  docsApi: 'https://docs.cyoda.net/cyodalight/api',
-  docsEntities: 'https://docs.cyoda.net/cyodalight/entities',
-  docsConfig: 'https://docs.cyoda.net/cyodalight/config',
-  docsExamples: 'https://docs.cyoda.net/cyodalight/examples',
+  docsQuickstart: 'https://docs.cyoda.net/getting-started/install-and-first-entity/',
+  docsApi: 'https://docs.cyoda.net/reference/api/',
+  docsEntities: 'https://docs.cyoda.net/concepts/entities-and-lifecycle/',
+  docsConfig: 'https://docs.cyoda.net/reference/configuration/',
+  docsExamples: 'https://docs.cyoda.net/build/working-with-entities/',
   cyodaCloud: 'https://ai.cyoda.net/',
   cyoda: 'https://cyoda.com',
 
@@ -40,9 +40,9 @@ export const site = {
   title: 'Cyoda — Open-Source EDBMS and Workflow Runtime',
   ogTitle: 'Cyoda — Open-Source EDBMS and Workflow Runtime',
   ogDescription:
-    'Define stateful entities, enforce lifecycle transitions, and query temporal history. Single binary. In-memory or PostgreSQL. Apache 2.0.',
+    'Define stateful entities, enforce lifecycle transitions, and query temporal history. Single binary. SQLite-backed local storage by default. Apache 2.0.',
   twitterDescription:
-    'Open-source EDBMS and workflow runtime. Stateful entities, lifecycle enforcement, immutable audit trail. Single binary. Java, Python, Go, Kotlin.',
+    'Open-source EDBMS and workflow runtime. Install Cyoda, run it locally, import a workflow, create an entity, transition it, and read state back.',
 
   // Legal
   copyrightHolder: 'Cyoda Ltd',

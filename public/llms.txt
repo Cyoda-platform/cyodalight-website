@@ -2,22 +2,23 @@
 
 > Cyoda is an open-source entity database management system (EDBMS) and workflow runtime.
 > Define entity types, enforce lifecycle transitions, and query temporal history.
-> Written in Go. Single binary. In-memory or PostgreSQL mode.
+> Written in Go. Single binary. SQLite-backed local storage by default.
 > Client libraries for Java, Python, Go, and Kotlin via gRPC.
 > Apache 2.0 License. No sign-up required.
 
 ## Documentation
 
-- [Quick Start](https://docs.cyoda.net/cyodalight/quickstart): Get Cyoda running in under 5 minutes
-- [API Reference](https://docs.cyoda.net/cyodalight/api): Full gRPC API documentation
-- [Entity Model](https://docs.cyoda.net/cyodalight/entities): How entities and state machines work
-- [Configuration](https://docs.cyoda.net/cyodalight/config): In-memory and PostgreSQL configuration
-- [Examples](https://docs.cyoda.net/cyodalight/examples): Runnable examples in Java, Python, Go, Kotlin
+- [Install and First Entity](https://docs.cyoda.net/getting-started/install-and-first-entity/): Install Cyoda, run it locally, import a workflow, create an entity, transition it, and read state back
+- [API Reference](https://docs.cyoda.net/reference/api/): Full API documentation
+- [Entity Lifecycle](https://docs.cyoda.net/concepts/entities-and-lifecycle/): How entities and state machines work
+- [Configuration](https://docs.cyoda.net/reference/configuration/): Local and production configuration
+- [Working with Entities](https://docs.cyoda.net/build/working-with-entities/): End-to-end entity patterns
 
 ## Project
 
-- [GitHub Repository](https://github.com/Cyoda-platform/cyoda-light-go): Source code, issues, releases
-- [Cyoda Platform](https://cyoda.com): Full distributed Cyoda platform (production use)
+- [GitHub Repository](https://github.com/Cyoda-platform/cyoda-go): Source code, issues, releases
+- [Cyoda Cloud](https://ai.cyoda.net/): Hosted Cyoda
+- [Enterprise Cyoda](https://cyoda.com): Enterprise Cyoda
 - [Changelog](https://DOMAIN_PLACEHOLDER/changelog): Release history
 
 ## Optional

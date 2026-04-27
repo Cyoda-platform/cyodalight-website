@@ -1,11 +1,8 @@
 /**
- * Install commands — spec sections 9 and 16.
+ * Current local developer quickstart.
  *
- * Commands shown are based on the GitHub repository at:
- *   https://github.com/Cyoda-platform/cyoda-light-go
- *
- * Verify exact binary name and Docker image before launch.
- * Latest releases: https://github.com/Cyoda-platform/cyoda-light-go/releases
+ * Mirrors the canonical docs on docs.cyoda.net without duplicating the full
+ * explanation, schema reference, or deployment guidance.
  */
 
 export interface InstallTab {
@@ -16,30 +13,50 @@ export interface InstallTab {
 
 export const installTabs: InstallTab[] = [
   {
-    label: 'In-Memory',
+    label: 'Install',
     language: 'bash',
-    code: `# Download from GitHub Releases:
-# github.com/Cyoda-platform/cyoda-light-go/releases
+    code: `# macOS / Linux via Homebrew
+brew install cyoda-platform/cyoda-go/cyoda
 
-cyoda start --mode=memory
-
-# HTTP API:  http://localhost:8080
-# gRPC:      localhost:9090`,
+# If your installer did not initialise local storage:
+cyoda init`,
   },
   {
-    label: 'PostgreSQL',
+    label: 'Run',
     language: 'bash',
-    code: `cyoda start --mode=postgres \\
-  --postgres-url=postgres://localhost:5432/cyoda`,
+    code: `cyoda
+
+# HTTP API: http://localhost:8080
+# Local default auth is mock auth; no bearer token required.`,
   },
   {
-    label: 'Docker',
+    label: 'First entity',
     language: 'bash',
-    code: `docker run -p 8080:8080 -p 9090:9090 \\
-  ghcr.io/cyoda-platform/cyoda:latest \\
-  --mode=memory`,
+    code: `curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
+  -H 'Content-Type: application/json' \\
+  -d @workflow.json
+
+ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \\
+  -H 'Content-Type: application/json' \\
+  -d '{ "orderId": "ORD-1", "amount": 42.00, "currency": "EUR" }' \\
+  | jq -r '.[0].entityIds[0]')
+
+curl -X PUT http://localhost:8080/api/entity/JSON/$ENTITY_ID/submit
+curl http://localhost:8080/api/entity/$ENTITY_ID`,
   },
 ];
 
-// Shortest single command for the Final CTA section
-export const shortestInstallCommand = `cyoda start --mode=memory`;
+export const localRunCommand = `brew install cyoda-platform/cyoda-go/cyoda
+cyoda`;
+
+export const firstEntityCommands = `curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
+  -H 'Content-Type: application/json' \\
+  -d @workflow.json
+
+ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \\
+  -H 'Content-Type: application/json' \\
+  -d '{ "orderId": "ORD-1", "amount": 42.00, "currency": "EUR" }' \\
+  | jq -r '.[0].entityIds[0]')
+
+curl -X PUT http://localhost:8080/api/entity/JSON/$ENTITY_ID/submit
+curl http://localhost:8080/api/entity/$ENTITY_ID`;

@@ -1,4 +1,4 @@
-Last updated: 2026-04-13
+Last updated: 2026-04-27
 
 # Cyoda — Complete Site Content
 
@@ -6,12 +6,7 @@ Last updated: 2026-04-13
 
 Cyoda is an open-source entity database management system (EDBMS) and workflow runtime. You define your entity types — the fields they carry, the states they can be in, and the valid transitions between states. Cyoda enforces those rules at the API boundary, records every state change immutably, and lets you query the history of any entity at any point in time.
 
-It runs as a single binary with no distributed cluster required.
-
-Cyoda supports two storage modes:
-
-- **In-memory mode**: Stores entity state in process memory. Zero external dependencies. Starts in under 2 seconds. Resets when the process stops. Use for development and fast test cycles.
-- **PostgreSQL mode**: Stores entity state durably in a PostgreSQL database. Persists across restarts. Use for integration testing and local validation with real persistence.
+It runs as a single binary with no distributed cluster required. Local installs use SQLite-backed storage by default, giving developers durable state with no external service to operate. In-memory mode is available for fast functional tests, PostgreSQL for durable service deployments, and Enterprise Cyoda for larger-scale production infrastructure.
 
 ## What is an EDBMS?
 
@@ -35,8 +30,8 @@ Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC
 ## Three Ways to Use Cyoda
 
 ### Run it yourself
-Download the binary and run Cyoda on your own machine or infrastructure. Local development, self-hosting, and experimentation. Free, Apache 2.0, no account required.
-Download: https://github.com/Cyoda-platform/cyoda-light-go/releases
+Install the open-source binary and run Cyoda on your own machine or infrastructure. Local development, self-hosting, and experimentation. Free, Apache 2.0, no account required.
+Install guide: https://docs.cyoda.net/getting-started/install-and-first-entity/
 
 ### Cyoda Cloud
 The hosted SaaS option. Managed infrastructure, no cluster to operate. Get started immediately without installation.
@@ -46,64 +41,64 @@ URL: https://ai.cyoda.net/
 Larger-scale infrastructure with enterprise support, SLA, and dedicated engagement for organisations with advanced operational requirements.
 URL: https://cyoda.com
 
-## Install and Run (Run it yourself)
+## Install and Get Started
 
-Download the latest release from GitHub:
-https://github.com/Cyoda-platform/cyoda-light-go/releases
+Use the canonical local developer flow from the docs:
 
-### In-Memory Mode (recommended for getting started)
 ```bash
-cyoda start --mode=memory
-# HTTP API:  http://localhost:8080
-# gRPC:      localhost:9090
+# macOS / Linux via Homebrew
+brew install cyoda-platform/cyoda-go/cyoda
+
+# If your installer did not initialise local storage:
+cyoda init
 ```
 
-### PostgreSQL Mode
+Start the server:
+
 ```bash
-cyoda start --mode=postgres \
-  --postgres-url=postgres://localhost:5432/cyoda
+cyoda
+# HTTP API: http://localhost:8080
+# Local default auth is mock auth; no bearer token required.
 ```
 
-### Docker
-```bash
-docker run -p 8080:8080 -p 9090:9090 \
-  ghcr.io/cyoda-platform/cyoda:latest \
-  --mode=memory
-```
+Import a minimal workflow for model `orders`, version `1`:
 
-## Hello World Example (Go)
-
-The example below creates a Greeting entity in the PENDING state, then drives a lifecycle transition based on the hour of day. Import paths are illustrative — see docs.cyoda.net for the published client libraries.
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "time"
-    cyoda "github.com/cyoda-platform/cyoda-light-go/client"
-)
-
-func main() {
-    client, _ := cyoda.NewClient("localhost:9090")
-    ctx := context.Background()
-
-    entity, _ := client.CreateEntity(ctx, &cyoda.Entity{
-        Type:  "Greeting",
-        State: "PENDING",
-        Data:  map[string]any{"hour": time.Now().Hour()},
-    })
-
-    if time.Now().Hour() < 12 {
-        client.Transition(ctx, entity.ID, "TO_MORNING")
-        fmt.Println("Good morning")
-    } else {
-        client.Transition(ctx, entity.ID, "TO_AFTERNOON")
-        fmt.Println("Good afternoon")
+```json
+{
+  "workflows": [
+    {
+      "version": "1",
+      "name": "orders-wf",
+      "initialState": "draft",
+      "active": true,
+      "states": {
+        "draft": {
+          "transitions": [
+            { "name": "submit", "next": "submitted", "manual": true }
+          ]
+        },
+        "submitted": {}
+      }
     }
+  ]
 }
 ```
+
+```bash
+curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \
+  -H 'Content-Type: application/json' \
+  -d @workflow.json
+
+ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \
+  -H 'Content-Type: application/json' \
+  -d '{ "orderId": "ORD-1", "amount": 42.00, "currency": "EUR" }' \
+  | jq -r '.[0].entityIds[0]')
+
+curl -X PUT http://localhost:8080/api/entity/JSON/$ENTITY_ID/submit
+curl http://localhost:8080/api/entity/$ENTITY_ID
+```
+
+The homepage intentionally stays compact. Use the docs for the full explanation, schema, processors, criteria, deployment options, and API reference.
 
 ## FAQ
 
@@ -120,26 +115,26 @@ Most backend systems need to track the state of business objects over time. With
 Systems where entities change state over time and where the history of those changes matters: workflow automation, order management, approval pipelines, event-driven backends, audit-sensitive applications, and anywhere you would otherwise build a hand-rolled state machine with an audit log.
 
 **What is the difference between in-memory and PostgreSQL mode?**
-In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops — useful for development and fast test cycles. PostgreSQL mode stores entity state durably in a PostgreSQL database, persisting across restarts.
+SQLite-backed local storage is the default for a fresh local install. In-memory mode stores entity state in process memory and resets when the process stops, which is useful for fast functional tests. PostgreSQL stores entity state durably for service deployments that need an external database.
 
 **What is the difference between Run it yourself, Cyoda Cloud, and Enterprise Cyoda?**
-Run it yourself: download the open-source binary and run Cyoda on your own machine or infrastructure. Free, Apache 2.0, no account required. Cyoda Cloud (ai.cyoda.net): the hosted SaaS option — managed infrastructure, no installation required. Enterprise Cyoda (cyoda.com): larger-scale deployment with enterprise support, SLA, and dedicated engagement.
+Run it yourself: install the open-source binary and run Cyoda on your own machine or infrastructure. Free, Apache 2.0, no account required. Cyoda Cloud (ai.cyoda.net): hosted Cyoda, no local installation required. Enterprise Cyoda (cyoda.com): larger-scale deployment with enterprise support, SLA, and dedicated engagement.
 
 **What languages are supported?**
 Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC implementation can connect to the Cyoda API directly.
 
 **Where is the GitHub repo?**
-https://github.com/Cyoda-platform/cyoda-light-go
+https://github.com/Cyoda-platform/cyoda-go
 
 **Where is the documentation?**
-Full documentation is at docs.cyoda.net. The Cyoda quickstart guide covers installation, entity definition, and your first workflow in under ten minutes.
+Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, workflow import, creating an entity, invoking a transition, and reading state back.
 
 ## Links
 
-- GitHub: https://github.com/Cyoda-platform/cyoda-light-go
-- Releases: https://github.com/Cyoda-platform/cyoda-light-go/releases
+- GitHub: https://github.com/Cyoda-platform/cyoda-go
+- Releases: https://github.com/Cyoda-platform/cyoda-go/releases
 - Documentation: https://docs.cyoda.net
-- Quick Start: https://docs.cyoda.net/cyodalight/quickstart
+- Install and First Entity: https://docs.cyoda.net/getting-started/install-and-first-entity/
 - Cyoda Cloud: https://ai.cyoda.net/
 - Enterprise Cyoda: https://cyoda.com
 

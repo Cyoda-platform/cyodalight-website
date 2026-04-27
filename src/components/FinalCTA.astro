@@ -1,11 +1,11 @@
 ---
 /**
- * FinalCTA — repeats the shortest run path and two CTAs.
+ * FinalCTA — points developers to the canonical local onramp.
  * Spec reference: section 16, section 23.
  */
 import CodeBlock from './CodeBlock.astro';
 import { site } from '../data/site';
-import { shortestInstallCommand } from '../data/install';
+import { localRunCommand } from '../data/install';
 ---
 
 <section
@@ -15,11 +15,11 @@ import { shortestInstallCommand } from '../data/install';
 >
   <div class="container">
     <div class="final-cta">
-      <h2 class="section-heading" id="final-cta-heading">Run it locally</h2>
+      <h2 class="section-heading" id="final-cta-heading">Start building locally</h2>
 
       <div class="final-cta__code">
         <CodeBlock
-          code={shortestInstallCommand}
+          code={localRunCommand}
           language="bash"
         />
       </div>

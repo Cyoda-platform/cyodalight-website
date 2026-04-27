@@ -43,12 +43,12 @@ export const faqItems: FaqItem[] = [
   {
     question: 'What is the difference between in-memory and PostgreSQL mode?',
     answer:
-      'In-memory mode stores entity state in process memory. It has zero external dependencies and resets when the process stops — useful for development and fast test cycles. PostgreSQL mode stores entity state durably in a PostgreSQL database, persisting across restarts. Use PostgreSQL mode for integration testing or when you need state to survive a process restart.',
+      'SQLite-backed local storage is the default for a fresh local install. In-memory mode stores entity state in process memory and resets when the process stops, which is useful for fast functional tests. PostgreSQL stores entity state durably for service deployments that need an external database.',
   },
   {
     question: 'What is the difference between Run it yourself, Cyoda Cloud, and Enterprise Cyoda?',
     answer:
-      'Run it yourself: download the open-source binary and run Cyoda on your own machine or infrastructure. Free, Apache 2.0, no account required. Cyoda Cloud: the hosted SaaS option at ai.cyoda.net — managed infrastructure, no installation required. Enterprise Cyoda: larger-scale deployment with enterprise support, SLA, and dedicated engagement for organisations with advanced operational requirements. All three options share the same core API and entity model.',
+      'Run it yourself: install the open-source binary and run Cyoda on your own machine or infrastructure. Free, Apache 2.0, no account required. Cyoda Cloud: the hosted SaaS option at ai.cyoda.net — managed infrastructure, no installation required. Enterprise Cyoda: larger-scale deployment with enterprise support, SLA, and dedicated engagement for organisations with advanced operational requirements. All three options share the same core API and entity model.',
   },
   {
     question: 'What languages are supported?',
@@ -58,11 +58,11 @@ export const faqItems: FaqItem[] = [
   {
     question: 'Where is the GitHub repo?',
     answer:
-      'The source code is at github.com/Cyoda-platform/cyoda-light-go. Issues, releases, and contributions are managed there.',
+      'The source code is at github.com/Cyoda-platform/cyoda-go. Issues, releases, and contributions are managed there.',
   },
   {
     question: 'Where is the documentation?',
     answer:
-      'Full documentation is at docs.cyoda.net. The Cyoda quickstart guide covers installation, entity definition, and your first workflow in under ten minutes.',
+      'Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, workflow import, creating an entity, invoking a transition, and reading state back.',
   },
 ];

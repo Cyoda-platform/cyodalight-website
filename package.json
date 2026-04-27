@@ -12,9 +12,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
+    "@cyoda/workflow-core": "^0.1.0",
+    "@cyoda/workflow-react": "^0.1.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
-    "astro": "^6.1.5"
+    "astro": "^6.1.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reactflow": "^11.11.4"
   }
 }

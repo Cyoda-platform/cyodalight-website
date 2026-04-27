@@ -2,11 +2,10 @@
  * main.ts — Cyoda site JavaScript
  *
  * Handles only:
- *   1. Language tab switching (LanguageTabGroup) with localStorage persistence
- *   2. Install panel tab switching (InstallPanel)
- *   3. Copy-to-clipboard buttons (CodeBlock)
- *   4. Mobile hamburger drawer toggle (NavBar)
- *   5. GitHub star count fetch (NavBar)
+ *   1. Install panel tab switching (InstallPanel)
+ *   2. Copy-to-clipboard buttons (CodeBlock)
+ *   3. Mobile hamburger drawer toggle (NavBar)
+ *   4. GitHub star count fetch (NavBar)
  *
  * Loaded deferred at end of <body>. No framework. No dependencies.
  * Estimated < 3KB gzipped.
@@ -14,102 +13,8 @@
  * Spec references: sections 12, 18, 19, 23.
  */
 
-const LANG_STORAGE_KEY = 'cyoda-lang';
-
 // ---------------------------------------------------------------------------
-// 1. Language Tab Groups
-// ---------------------------------------------------------------------------
-
-function initLangTabs(): void {
-  const groups = document.querySelectorAll<HTMLElement>('[data-lang-tab-group]');
-  if (!groups.length) return;
-
-  const savedLang = localStorage.getItem(LANG_STORAGE_KEY);
-
-  function activateTab(group: HTMLElement, targetLang: string): void {
-    const tabs = group.querySelectorAll<HTMLButtonElement>('[role="tab"]');
-    const panels = group.querySelectorAll<HTMLElement>('[role="tabpanel"]');
-
-    let activated = false;
-
-    tabs.forEach((tab, i) => {
-      const isTarget = tab.dataset.lang === targetLang;
-      const isFirst = i === 0;
-      const shouldActivate = isTarget || (!activated && isFirst && !tabs[Symbol.iterator]().toString());
-
-      tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-
-      if (isTarget) activated = true;
-    });
-
-    // If no tab matched the saved lang, fall back to first tab
-    if (!activated) {
-      tabs[0]?.setAttribute('aria-selected', 'true');
-    }
-
-    // Show/hide panels to match
-    tabs.forEach((tab, i) => {
-      const isSelected = tab.getAttribute('aria-selected') === 'true';
-      tab.classList.toggle('is-active', isSelected);
-
-      const panel = panels[i];
-      if (panel) {
-        panel.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
-        panel.classList.toggle('is-active', isSelected);
-      }
-    });
-  }
-
-  function switchAllGroups(lang: string): void {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-    groups.forEach((group) => activateTab(group, lang));
-  }
-
-  groups.forEach((group) => {
-    const tabs = group.querySelectorAll<HTMLButtonElement>('[role="tab"]');
-
-    // Apply saved lang on init
-    if (savedLang) {
-      activateTab(group, savedLang);
-    }
-
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const lang = tab.dataset.lang;
-        if (lang) switchAllGroups(lang);
-      });
-
-      // Keyboard navigation: arrow keys within tablist
-      tab.addEventListener('keydown', (e: KeyboardEvent) => {
-        const allTabs = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
-        const index = allTabs.indexOf(tab);
-
-        if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          const next = allTabs[(index + 1) % allTabs.length];
-          next?.focus();
-          next?.click();
-        } else if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const prev = allTabs[(index - 1 + allTabs.length) % allTabs.length];
-          prev?.focus();
-          prev?.click();
-        } else if (e.key === 'Home') {
-          e.preventDefault();
-          allTabs[0]?.focus();
-          allTabs[0]?.click();
-        } else if (e.key === 'End') {
-          e.preventDefault();
-          allTabs[allTabs.length - 1]?.focus();
-          allTabs[allTabs.length - 1]?.click();
-        }
-      });
-    });
-  });
-}
-
-// ---------------------------------------------------------------------------
-// 2. Install Panel Tab Switching
+// 1. Install Panel Tab Switching
 // ---------------------------------------------------------------------------
 
 function initInstallPanels(): void {
@@ -158,7 +63,7 @@ function initInstallPanels(): void {
 }
 
 // ---------------------------------------------------------------------------
-// 3. Copy-to-Clipboard Buttons
+// 2. Copy-to-Clipboard Buttons
 // ---------------------------------------------------------------------------
 
 function initCopyButtons(): void {
@@ -192,7 +97,7 @@ function initCopyButtons(): void {
 }
 
 // ---------------------------------------------------------------------------
-// 4. Mobile Hamburger Drawer
+// 3. Mobile Hamburger Drawer
 // ---------------------------------------------------------------------------
 
 function initHamburger(): void {
@@ -225,14 +130,14 @@ function initHamburger(): void {
 }
 
 // ---------------------------------------------------------------------------
-// 5. GitHub Star Count
+// 4. GitHub Star Count
 // ---------------------------------------------------------------------------
 
 async function fetchGitHubStars(): Promise<void> {
   const el = document.getElementById('github-star-count');
   if (!el) return;
 
-  const REPO = 'Cyoda-platform/cyoda-light-go';
+  const REPO = 'Cyoda-platform/cyoda-go';
   const CACHE_KEY = 'cyoda-github-stars';
   const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
@@ -283,7 +188,6 @@ function formatStars(n: number): string {
 // ---------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  initLangTabs();
   initInstallPanels();
   initCopyButtons();
   initHamburger();
