@@ -22,9 +22,10 @@ import { firstEntityCommands } from '../data/install';
 
         <p class="quickstart__framing">
           The shortest useful path: install the binary, start the local server,
-          import a workflow, create an entity, move it through a transition,
-          and read the state back. The graph shows the Hello World workflow
-          shape; the commands keep the first local API loop compact.
+          import the lifecycle workflow for an entity model, create an entity
+          instance, move it through a valid transition, and read the state back.
+          The graph shows the HelloWorld entity workflow: the states,
+          transitions, criteria, and processors attached to that entity.
         </p>
 
         <ol class="quickstart__steps">
@@ -43,8 +44,8 @@ import { firstEntityCommands } from '../data/install';
           </li>
           <li>
             <strong>Keep going:</strong>
-            use the docs for schemas, processors, criteria, deployment options,
-            and API reference.
+            use the docs for entity schemas, workflow processors, criteria,
+            deployment options, and API reference.
           </li>
         </ol>
 
@@ -61,12 +62,15 @@ import { firstEntityCommands } from '../data/install';
 
       <div
         class="workflow-artifact"
-        aria-label="Hello World workflow graph"
+        aria-label="HelloWorld entity workflow editor"
       >
         <div class="workflow-artifact__header">
           <div>
-            <p class="workflow-artifact__eyebrow">Workflow artifact</p>
-            <h3 class="workflow-artifact__title">HelloWorldWorkflow</h3>
+            <p class="workflow-artifact__eyebrow">Entity workflow</p>
+            <h3 class="workflow-artifact__title">HelloWorld</h3>
+            <p class="workflow-artifact__subtitle">
+              Lifecycle for the HelloWorld example entity
+            </p>
           </div>
           <span class="workflow-artifact__badge">Editable</span>
         </div>
@@ -79,7 +83,7 @@ import { firstEntityCommands } from '../data/install';
         <CodeBlock
           code={firstEntityCommands}
           language="bash"
-          label="local-api-loop.sh"
+          label="orders-entity-lifecycle.sh"
         />
       </div>
     </div>

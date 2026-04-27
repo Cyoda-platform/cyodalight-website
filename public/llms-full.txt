@@ -61,7 +61,7 @@ cyoda
 # Local default auth is mock auth; no bearer token required.
 ```
 
-Import a minimal workflow for model `orders`, version `1`:
+Import a minimal entity workflow for model `orders`, version `1`:
 
 ```json
 {
@@ -87,7 +87,7 @@ Import a minimal workflow for model `orders`, version `1`:
 ```bash
 curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \
   -H 'Content-Type: application/json' \
-  -d @workflow.json
+  -d @orders-entity-workflow.json
 
 ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \
   -H 'Content-Type: application/json' \
@@ -127,7 +127,7 @@ Java, Python, Go, and Kotlin via gRPC client libraries. Any language with a gRPC
 https://github.com/Cyoda-platform/cyoda-go
 
 **Where is the documentation?**
-Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, workflow import, creating an entity, invoking a transition, and reading state back.
+Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, importing an entity workflow, creating an entity, invoking a lifecycle transition, and reading state back.
 
 ## Links
 

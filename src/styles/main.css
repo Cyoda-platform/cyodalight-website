@@ -912,6 +912,13 @@ samp {
   color: var(--text-primary);
 }
 
+.workflow-artifact__subtitle {
+  margin-top: 3px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  color: var(--text-secondary);
+}
+
 .workflow-artifact__badge {
   flex-shrink: 0;
   padding: 3px 8px;
@@ -936,6 +943,10 @@ samp {
   height: 100%;
   min-width: 680px;
   background: var(--bg-primary);
+}
+
+.workflow-artifact [data-testid="workflow-tabs"] {
+  display: none !important;
 }
 
 .workflow-artifact [data-testid="inspector"] {

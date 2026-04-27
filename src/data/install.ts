@@ -32,9 +32,10 @@ cyoda init`,
   {
     label: 'First entity',
     language: 'bash',
-    code: `curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
+    code: `# Import the entity workflow for the orders model.
+curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
   -H 'Content-Type: application/json' \\
-  -d @workflow.json
+  -d @orders-entity-workflow.json
 
 ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \\
   -H 'Content-Type: application/json' \\
@@ -49,9 +50,10 @@ curl http://localhost:8080/api/entity/$ENTITY_ID`,
 export const localRunCommand = `brew install cyoda-platform/cyoda-go/cyoda
 cyoda`;
 
-export const firstEntityCommands = `curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
+export const firstEntityCommands = `# Import the entity workflow for the orders model.
+curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
   -H 'Content-Type: application/json' \\
-  -d @workflow.json
+  -d @orders-entity-workflow.json
 
 ENTITY_ID=$(curl -s -X POST http://localhost:8080/api/entity/JSON/orders/1 \\
   -H 'Content-Type: application/json' \\

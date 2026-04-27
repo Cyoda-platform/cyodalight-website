@@ -18,9 +18,9 @@ export const features: Feature[] = [
   },
   {
     iconId: 'icon-workflow',
-    title: 'State-machine workflows',
+    title: 'Entity workflows',
     description:
-      'Workflows run as finite state machines. Invalid transitions are rejected at the API boundary. Transition logic is declared, not buried in application code.',
+      'Each entity workflow runs as a finite state machine. Invalid lifecycle transitions are rejected at the API boundary. Transition logic is declared, not buried in application code.',
   },
   {
     iconId: 'icon-events',

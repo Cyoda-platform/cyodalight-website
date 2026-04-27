@@ -63,6 +63,6 @@ export const faqItems: FaqItem[] = [
   {
     question: 'Where is the documentation?',
     answer:
-      'Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, workflow import, creating an entity, invoking a transition, and reading state back.',
+      'Full documentation is at docs.cyoda.net. The install-and-first-entity guide covers installation, local startup, importing an entity workflow, creating an entity, invoking a lifecycle transition, and reading state back.',
   },
 ];

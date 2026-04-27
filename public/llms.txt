@@ -8,7 +8,7 @@
 
 ## Documentation
 
-- [Install and First Entity](https://docs.cyoda.net/getting-started/install-and-first-entity/): Install Cyoda, run it locally, import a workflow, create an entity, transition it, and read state back
+- [Install and First Entity](https://docs.cyoda.net/getting-started/install-and-first-entity/): Install Cyoda, run it locally, import an entity workflow, create an entity, transition it through its lifecycle, and read state back
 - [API Reference](https://docs.cyoda.net/reference/api/): Full API documentation
 - [Entity Lifecycle](https://docs.cyoda.net/concepts/entities-and-lifecycle/): How entities and state machines work
 - [Configuration](https://docs.cyoda.net/reference/configuration/): Local and production configuration

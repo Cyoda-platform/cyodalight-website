@@ -42,7 +42,7 @@ export const site = {
   ogDescription:
     'Define stateful entities, enforce lifecycle transitions, and query temporal history. Single binary. SQLite-backed local storage by default. Apache 2.0.',
   twitterDescription:
-    'Open-source EDBMS and workflow runtime. Install Cyoda, run it locally, import a workflow, create an entity, transition it, and read state back.',
+    'Open-source EDBMS and entity workflow runtime. Install Cyoda, run it locally, import an entity workflow, create an entity, transition it, and read state back.',
 
   // Legal
   copyrightHolder: 'Cyoda Ltd',
