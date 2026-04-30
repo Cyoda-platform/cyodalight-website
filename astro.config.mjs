@@ -4,8 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 
 // Custom domain: remove `base`, set `site` to the final domain.
-const GITHUB_PAGES_SITE = 'https://cyoda-platform.github.io';
-const GITHUB_PAGES_BASE = '/cyodalight-website/';
+const GITHUB_PAGES_SITE = 'https://cyoda.org';
+const GITHUB_PAGES_BASE = '/';
 
 export default defineConfig({
   output: 'static',
