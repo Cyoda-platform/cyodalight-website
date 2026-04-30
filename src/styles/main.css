@@ -461,11 +461,16 @@ samp {
   display: grid;
   gap: var(--space-8);
   align-items: center;
+  min-width: 0;
+}
+
+.hero__inner > * {
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
   .hero__inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-10);
   }
 }
@@ -565,6 +570,8 @@ samp {
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 
 .install-panel__tabs {
@@ -599,10 +606,14 @@ samp {
 
 .install-panel__content {
   padding: var(--space-3);
+  height: 360px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .install-panel__panel {
   display: none;
+  min-width: 0;
 }
 
 .install-panel__panel[aria-hidden="false"] {
@@ -621,6 +632,8 @@ samp {
 
 .code-block {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .code-block__label {
@@ -640,6 +653,9 @@ samp {
   line-height: var(--leading-code);
   color: var(--text-primary);
   margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  white-space: pre;
 }
 
 .code-block pre code {
