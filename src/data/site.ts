@@ -21,6 +21,7 @@ export const site = {
 
   // External links — all confirmed in spec
   github: 'https://github.com/Cyoda-platform/cyoda-go',
+  skillsRepo: 'https://github.com/Cyoda-platform/cyoda-skills',
   githubReleases: 'https://github.com/Cyoda-platform/cyoda-go/releases',
   docs: 'https://docs.cyoda.net',
   docsQuickstart: 'https://docs.cyoda.net/getting-started/install-and-first-entity/',

@@ -614,10 +614,26 @@ samp {
 .install-panel__panel {
   display: none;
   min-width: 0;
+  height: 100%;
 }
 
 .install-panel__panel[aria-hidden="false"] {
   display: block;
+}
+
+.install-panel .code-block,
+.install-panel .code-block > div,
+.install-panel .code-block pre {
+  height: 100%;
+}
+
+.install-panel .code-block pre {
+  --code-block-overflow-x: hidden;
+  --code-block-overflow-y: auto;
+  --code-block-white-space: pre-wrap;
+  --code-block-overflow-wrap: anywhere;
+  --code-block-word-break: break-word;
+  padding-right: calc(var(--space-3) + 3.5rem);
 }
 
 /* Fallback: show first panel when JS is disabled */
@@ -648,14 +664,17 @@ samp {
   background-color: var(--bg-code);
   border-radius: var(--radius-md);
   padding: var(--space-3);
-  overflow-x: auto;
+  overflow-x: var(--code-block-overflow-x, auto);
+  overflow-y: var(--code-block-overflow-y, visible);
   font-size: var(--text-sm);
   line-height: var(--leading-code);
   color: var(--text-primary);
   margin: 0;
   min-width: 0;
   max-width: 100%;
-  white-space: pre;
+  white-space: var(--code-block-white-space, pre);
+  overflow-wrap: var(--code-block-overflow-wrap, normal);
+  word-break: var(--code-block-word-break, normal);
 }
 
 .code-block pre code {
@@ -863,6 +882,112 @@ samp {
   text-decoration: underline;
 }
 
+/* --------------------------------------------------------------------------
+   18. AI Agent Install Tabs
+   -------------------------------------------------------------------------- */
+
+.agent-install {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.agent-install__header {
+  max-width: 860px;
+}
+
+.agent-install__intro,
+.agent-install__support-copy,
+.agent-install__bottom-note {
+  color: var(--text-secondary);
+}
+
+.agent-install__support-copy {
+  margin-top: var(--space-2);
+}
+
+.agent-install-tabs {
+  background-color: var(--bg-primary);
+}
+
+.agent-install-tabs__tablist {
+  gap: var(--space-1);
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-block: 10px 0;
+  scroll-padding-inline: var(--space-2);
+}
+
+.agent-install-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding-inline: 14px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.agent-install-tabs__tab[aria-selected="true"] {
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.agent-install-tabs__badge-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.agent-install-tabs__content {
+  height: auto;
+  min-height: 40rem;
+  overflow: visible;
+}
+
+.agent-install-tabs__panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.agent-install-tabs__description {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.agent-install-tabs__steps {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.agent-install-tabs__step {
+  min-width: 0;
+}
+
+.agent-install-tabs__note {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.agent-install__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.agent-install__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.agent-install__links .quickstart__link {
+  margin-top: 0;
+}
+
 .quickstart__framing {
   font-size: var(--text-base);
   color: var(--text-secondary);
@@ -893,6 +1018,15 @@ samp {
 .quickstart__copy,
 .quickstart__commands {
   min-width: 0;
+}
+
+.quickstart__commands .code-block pre {
+  --code-block-overflow-x: hidden;
+  --code-block-overflow-y: visible;
+  --code-block-white-space: pre-wrap;
+  --code-block-overflow-wrap: anywhere;
+  --code-block-word-break: break-word;
+  padding-right: calc(var(--space-3) + 3.5rem);
 }
 
 .workflow-artifact {
@@ -947,7 +1081,7 @@ samp {
 }
 
 .workflow-artifact__canvas {
-  height: 520px;
+  height: 420px;
   overflow: auto;
   background:
     radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.24) 1px, transparent 0),
@@ -1002,17 +1136,17 @@ samp {
   }
 
   .quickstart__commands {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 2;
   }
 
   .workflow-artifact {
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 1;
   }
 
   .workflow-artifact__canvas {
-    height: 640px;
+    height: 440px;
     overflow: hidden;
   }
 
@@ -1028,12 +1162,18 @@ samp {
   }
 
   .workflow-artifact__canvas {
-    height: 680px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .agent-install-tabs__content {
+    min-height: 0;
   }
 }
 
 /* --------------------------------------------------------------------------
-   18. Feature Grid
+   19. Feature Grid
    -------------------------------------------------------------------------- */
 
 .feature-grid {

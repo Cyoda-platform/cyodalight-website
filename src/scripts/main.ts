@@ -29,6 +29,7 @@ function initInstallPanels(): void {
       tabs.forEach((tab, i) => {
         const active = i === index;
         tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
         tab.classList.toggle('is-active', active);
       });
 
@@ -56,6 +57,15 @@ function initInstallPanels(): void {
           const prev = (index - 1 + allTabs.length) % allTabs.length;
           allTabs[prev]?.focus();
           activate(prev);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          allTabs[0]?.focus();
+          activate(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          const last = allTabs.length - 1;
+          allTabs[last]?.focus();
+          activate(last);
         }
       });
     });

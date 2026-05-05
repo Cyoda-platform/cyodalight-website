@@ -1,0 +1,124 @@
+---
+import Badge from './Badge.astro';
+import CodeBlock from './CodeBlock.astro';
+import { site } from '../data/site';
+import { agentInstallTabs } from '../data/agentInstallTabs';
+
+const panelId = 'agent-install';
+---
+
+<section
+  class="section section--alt"
+  id="ai-coding-agent"
+  aria-labelledby="agent-install-heading"
+>
+  <div class="container">
+    <div class="agent-install">
+      <div class="agent-install__header">
+        <h2 class="section-heading" id="agent-install-heading">
+          Use Cyoda with your AI coding agent
+        </h2>
+        <p class="section-subheading">
+          Install Cyoda’s agent skills so your coding agent understands Cyoda
+          entities, workflows, criteria, processors, testing and local development
+          conventions.
+        </p>
+        <p class="agent-install__intro">
+          Cyoda ships agent skills that help AI coding tools generate Cyoda
+          applications using the right project structure, entity models, workflow
+          definitions, criteria, processors and tests. Choose your coding agent below.
+        </p>
+        <p class="agent-install__support-copy">
+          Different agents support skills and instructions differently. Choose the
+          tab for your agent.
+        </p>
+      </div>
+
+      <div class="agent-install-tabs install-panel" data-install-panel>
+        <div
+          class="install-panel__tabs agent-install-tabs__tablist"
+          role="tablist"
+          aria-label="Cyoda AI coding agent installation paths"
+        >
+          {agentInstallTabs.map((tab, i) => (
+            <button
+              class="install-panel__tab agent-install-tabs__tab"
+              role="tab"
+              id={`${panelId}-tab-${i}`}
+              aria-controls={`${panelId}-panel-${i}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? '0' : '-1'}
+              type="button"
+            >
+              <span>{tab.label}</span>
+              {tab.badge && (
+                <span class="agent-install-tabs__badge-wrap">
+                  <Badge label={tab.badge} />
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        <div class="install-panel__content agent-install-tabs__content">
+          {agentInstallTabs.map((tab, i) => (
+            <div
+              class:list={[
+                'install-panel__panel',
+                'agent-install-tabs__panel',
+                i === 0 && 'is-active',
+              ]}
+              role="tabpanel"
+              id={`${panelId}-panel-${i}`}
+              aria-labelledby={`${panelId}-tab-${i}`}
+              aria-hidden={i === 0 ? 'false' : 'true'}
+            >
+              <div class="agent-install-tabs__panel-body">
+                <p class="agent-install-tabs__description">{tab.description}</p>
+
+                <div class="agent-install-tabs__steps">
+                  {tab.steps.map((step) => (
+                    <div class="agent-install-tabs__step">
+                      <CodeBlock
+                        code={step.code}
+                        language={step.language}
+                        label={step.label}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {tab.note && (
+                  <p class="agent-install-tabs__note">{tab.note}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="agent-install__footer">
+        <p class="agent-install__bottom-note">
+          Different agents use different extension mechanisms. Claude Code uses a
+          plugin marketplace, Codex and Gemini can use skill or extension wrappers,
+          and IDE agents usually consume project instruction files such as
+          <code>AGENTS.md</code>.
+        </p>
+
+        <div class="agent-install__links">
+          <a
+            href={site.skillsRepo}
+            class="quickstart__link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            &rarr; View skills on GitHub
+          </a>
+          <a href="#install-get-started" class="quickstart__link">
+            &rarr; Start with a minimal Cyoda app
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -6,14 +6,15 @@
  *   1. Header / nav        — in BaseLayout
  *   2. Hero                — HeroSection
  *   3. Proof bar           — ProofBar
- *   4. What it is          — WhatItIs
- *   5. Quick start         — QuickStart
- *   6. Key capabilities    — FeatureGrid
- *   7. Growth path         — GrowthPath
- *   8. Three ways to use   — ProgressionDiagram
- *   9. FAQ                 — FAQSection
- *  10. Final CTA           — FinalCTA
- *  11. Footer              — in BaseLayout
+ *   4. AI agent install    — AgentInstallTabs
+ *   5. What it is          — WhatItIs
+ *   6. Quick start         — QuickStart
+ *   7. Key capabilities    — FeatureGrid
+ *   8. Growth path         — GrowthPath
+ *   9. Three ways to use   — ProgressionDiagram
+ *  10. FAQ                 — FAQSection
+ *  11. Final CTA           — FinalCTA
+ *  12. Footer              — in BaseLayout
  *
  * This file contains only section composition and data plumbing.
  * No layout logic lives here.
@@ -21,6 +22,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ProofBar from '../components/ProofBar.astro';
+import AgentInstallTabs from '../components/AgentInstallTabs.astro';
 import WhatItIs from '../components/WhatItIs.astro';
 import QuickStart from '../components/QuickStart.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
@@ -39,13 +41,16 @@ import { features } from '../data/features';
   <!-- 3. Proof bar -->
   <ProofBar />
 
-  <!-- 4. What it is -->
+  <!-- 4. AI coding agent install paths -->
+  <AgentInstallTabs />
+
+  <!-- 5. What it is -->
   <WhatItIs />
 
-  <!-- 5. Install and get started -->
+  <!-- 6. Install and get started -->
   <QuickStart />
 
-  <!-- 6. Key capabilities -->
+  <!-- 7. Key capabilities -->
   <section
     class="section"
     id="capabilities"
@@ -57,15 +62,15 @@ import { features } from '../data/features';
     </div>
   </section>
 
-  <!-- 7. Growth path — runtime mode progression -->
+  <!-- 8. Growth path — runtime mode progression -->
   <GrowthPath />
 
-  <!-- 8. Three ways to use Cyoda -->
+  <!-- 9. Three ways to use Cyoda -->
   <ProgressionDiagram />
 
-  <!-- 9. FAQ -->
+  <!-- 10. FAQ -->
   <FAQSection />
 
-  <!-- 10. Final CTA -->
+  <!-- 11. Final CTA -->
   <FinalCTA />
 </BaseLayout>
