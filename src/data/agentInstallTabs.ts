@@ -102,7 +102,7 @@ gemini extensions link .`,
       "Cursor can use Cyoda through project-level agent instructions.",
     steps: [
       {
-        label: "Add instructions",
+        label: "Add instructions (untested)",
         language: "bash",
         code: "curl -L https://raw.githubusercontent.com/Cyoda-platform/cyoda-skills/main/AGENTS.md -o AGENTS.md",
       },
@@ -121,7 +121,7 @@ gemini extensions link .`,
       "Windsurf can use Cyoda through project-level agent instructions.",
     steps: [
       {
-        label: "Add instructions",
+        label: "Add instructions (untested)",
         language: "bash",
         code: "curl -L https://raw.githubusercontent.com/Cyoda-platform/cyoda-skills/main/AGENTS.md -o AGENTS.md",
       },
@@ -135,7 +135,7 @@ gemini extensions link .`,
   },
   {
     id: "github-copilot",
-    label: "GitHub Copilot",
+    label: "GitHub Copilot (untested)",
     description: "GitHub Copilot can use repository instructions.",
     steps: [
       {
