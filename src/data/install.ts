@@ -13,25 +13,22 @@ export interface InstallTab {
 
 export const installTabs: InstallTab[] = [
   {
-    label: 'Install',
-    language: 'bash',
+    label: "Install",
+    language: "bash",
     code: `# macOS / Linux via Homebrew
-brew install cyoda-platform/cyoda-go/cyoda
-
-# If your installer did not initialise local storage:
-cyoda init`,
+brew install cyoda-platform/cyoda-go/cyoda`,
   },
   {
-    label: 'Run',
-    language: 'bash',
+    label: "Run",
+    language: "bash",
     code: `cyoda
 
 # HTTP API: http://localhost:8080
 # Local default auth is mock auth; no bearer token required.`,
   },
   {
-    label: 'First entity',
-    language: 'bash',
+    label: "First entity",
+    language: "bash",
     code: `# Import the entity workflow for the orders model.
 curl -X POST http://localhost:8080/api/model/orders/1/workflow/import \\
   -H 'Content-Type: application/json' \\
