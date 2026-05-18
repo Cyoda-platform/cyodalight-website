@@ -60,7 +60,26 @@ export const agentInstallTabs: AgentInstallTab[] = [
         language: "bash",
         code: `git clone https://github.com/Cyoda-platform/cyoda-skills.git
 mkdir -p ~/.agents/skills
-cp -R cyoda-skills/cyoda/skills/* ~/.agents/skills/`,
+cp -R cyoda-skills/cyoda/skills/cyoda-* ~/.agents/skills/`,
+      },
+      {
+        label: "Restart Codex",
+        language: "text",
+        code: "Restart Codex after installing or updating the skills.",
+      },
+      {
+        label: "Verify installation",
+        language: "bash",
+        code: `find ~/.agents/skills -maxdepth 2 -name SKILL.md -print
+grep -R "^name:" ~/.agents/skills/*/SKILL.md`,
+      },
+      {
+        label: "Expected skill names",
+        language: "text",
+        code: `name: cyoda-app
+name: cyoda-build
+name: cyoda-setup
+name: cyoda-test`,
       },
       {
         label: "Use explicitly",
@@ -73,7 +92,7 @@ cp -R cyoda-skills/cyoda/skills/* ~/.agents/skills/`,
         code: "Build a minimal Cyoda app with one entity, one workflow, criteria, processors and tests.",
       },
     ],
-    note: "If the codex/skills wrapper is not present in your checkout yet, point Codex at the main Cyoda skills repository and ask it to read the relevant SKILL.md files before generating code.",
+    note: "Codex should automatically use the relevant Cyoda skill when the request matches the skill description. If the skills do not appear in Codex, open the cloned cyoda-skills repository and ask Codex to read the relevant SKILL.md files directly before generating code.",
   },
   {
     id: "gemini-cli",
